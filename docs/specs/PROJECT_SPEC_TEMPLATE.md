@@ -43,6 +43,11 @@ Describe the product-level flow without implementation details.
 ## 10. Data and Integrations
 Describe required information and external systems at a product level.
 
+- Personal data collected:
+- Legal jurisdiction / data-protection law:
+- Consent and privacy notice:
+- Supported languages and how the language is chosen:
+
 ## 11. Constraints
 Budget, hosting, legal, operational, technical, timing, or organizational constraints.
 

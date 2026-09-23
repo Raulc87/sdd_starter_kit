@@ -18,6 +18,8 @@ Always determine this before selecting technologies.
 - Deployment restrictions:
 - Cost constraints:
 - Portability constraints:
+- Runtime availability confirmed on the actual plan (language versions, app support)? If not, record the assumption and a fallback in an ADR.
+- Where the sprint deliverables run (local / staging / production):
 
 ## 3. Selection Principle
 Prefer the least-complex stack that satisfies approved requirements and constraints.
@@ -41,7 +43,18 @@ Prefer the least-complex stack that satisfies approved requirements and constrai
 -
 
 ## 8. Testing
--
+- Unit:
+- Integration / API:
+- End-to-end:
+
+## 8.1 Code Quality and Conventions
+- Linters / formatters / type checks:
+- Naming conventions (code, API and data fields):
+- Localization approach (if multilingual):
+
+## 8.2 Local Development
+- How to run the full system locally:
+- Test doubles for external services (e.g. in-memory storage):
 
 ## 9. CI/CD
 -

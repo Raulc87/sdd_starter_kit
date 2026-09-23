@@ -32,6 +32,8 @@ Project Requirement -> User Story -> Acceptance Criterion -> Implementation Step
 -
 
 ## 9. API / Integration Changes
+Summarize and link the locked contract(s) in `docs/specs/<NAME>_CONTRACT.md` (from `INTEGRATION_CONTRACT_TEMPLATE.md`). Parallel work on either side of an interface must not start before its contract is locked.
+
 -
 
 ## 10. Configuration / Secrets
@@ -43,7 +45,7 @@ Project Requirement -> User Story -> Acceptance Criterion -> Implementation Step
 3.
 
 ## 12. Parallelization Plan
-Identify workstreams, contracts, dependencies, and merge order.
+Identify workstreams, contracts, dependencies, foundation/scaffold owner, directory layout with an owner per path, integration PR owner, and merge order.
 
 ## 13. Testing Strategy
 -

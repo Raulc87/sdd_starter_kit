@@ -31,3 +31,6 @@ So that ...
 
 **Jira**
 - Jira Key: TBD
+
+**Branch**
+- `<KEY>-<NNN>-<short-slug>` (see `AGENTS.md`)
