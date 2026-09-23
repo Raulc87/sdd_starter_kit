@@ -2,6 +2,7 @@
 
 ## Project
 - Name:
+- Project key: <2–5 uppercase letters, e.g. GK> (used in branch names, PR titles, commits; see `AGENTS.md`)
 - Repository: <GitHub URL>
 - Starter Kit: https://github.com/Raulc87/sdd_starter_kit
 - Status: Discovery / Planning / Ready for Sprint <NNN> / Sprint <NNN> active / ...

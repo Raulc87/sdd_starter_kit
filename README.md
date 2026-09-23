@@ -51,7 +51,7 @@ For a new project:
 
 1. Create the repository from this template.
 2. Copy each `*_TEMPLATE.md` you need to its working path without the `_TEMPLATE` suffix (see the document map in `AGENTS.md`), e.g. `TECH_STACK_TEMPLATE.md` -> `TECH_STACK.md`, `docs/sprints/SPRINT_PLAN_TEMPLATE.md` -> `docs/sprints/SPRINT_001.md`. Delete templates you do not use.
-3. Fill `PROJECT_CONTEXT.md` with the real repository URL and document paths.
+3. Fill `PROJECT_CONTEXT.md` with the real repository URL, the project key (e.g. `GK`), and document paths. Branches, PR titles, and commits follow the naming rules in `AGENTS.md` (`<KEY>-<NNN>-<slug>`).
 4. Before each sprint, run `docs/checklists/SPRINT_READINESS_CHECKLIST.md` and record the result in the sprint plan's entry gates.
 5. Start agents only after the human owner gives the go-ahead.
 

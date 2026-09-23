@@ -28,8 +28,8 @@ Every sprint must end with a demonstrable deliverable.
 -
 
 ## Selected User Stories
-| Story | Points | Agent | Dependencies | Status |
-|---|---:|---|---|---|
+| Story | Points | Agent | Dependencies | Branch (`<KEY>-<NNN>-<slug>`) | Status |
+|---|---:|---|---|---|---|
 
 ## Parallel Workstreams
 ### Agent 1
