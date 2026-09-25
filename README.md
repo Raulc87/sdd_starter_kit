@@ -10,7 +10,7 @@ A reusable starter kit for projects developed with Spec-Driven Development (SDD)
 4. USER_STORIES
 5. FEATURE_SPEC(s), when needed
 6. ARCHITECTURE_SPEC, when needed
-7. UX_UI_DIRECTION, when the project has a user interface
+7. UX_UI_DIRECTION, when the project has a user interface (visual identity via `docs/process/VISUAL_IDENTITY_PROCESS.md`, usually after the first functional prototype)
 8. TECH_STACK
 9. ADRs, when a decision needs to be recorded
 10. IMPLEMENTATION_PLAN
@@ -65,6 +65,7 @@ The first pilot (`Raulc87/gaby-main-page`) showed that these are usually missing
 - legal jurisdiction and consent for personal data
 - inclusive-language rules applied to the proposed copy itself
 - where the sprint deliverable runs (local vs. hosted) and confirmation of the hosting runtime
+- a visual-identity step: build the first prototype on provisional theme tokens, then explore 2 proposals from the client's brand material, record the chosen one in the UX spec, and apply it as its own story
 
 ## Agent bootstrap
 
