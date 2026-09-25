@@ -19,7 +19,7 @@ The first pilot used this sequence: functional prototype first, then 2 visual pr
    - 1–3 reference sites the client likes, and anything to avoid
 2. **Extract the basics** from that material: sample the exact brand colors (hex), identify the typeface style, and note recurring motifs.
 3. **Explore: 2 proposals, 3 at most.**
-   - Build them as quick visual mockups with a design tool or skill (e.g. a one-page-offer or artifact/design skill). Mockups are references, not production code.
+   - Build them as quick visual mockups with a design tool or skill (see Tools below). Mockups are references, not production code.
    - Each proposal uses the **approved copy and section order** from the UX spec, and differs in treatment (e.g. light/corporate vs. dark/editorial), not in content.
    - Proposals must obey the spec's business rules: no invented testimonials, prices, or outcomes; provisional items visibly marked.
    - Label each mockup as a proposal, and list which assets are provisional.
@@ -32,6 +32,34 @@ The first pilot used this sequence: functional prototype first, then 2 visual pr
    - a link to the chosen mockup as a visual reference only
 6. **Create the story** "Apply the approved visual identity", with acceptance criteria for: tokens replacing the provisional palette, fonts, every section in every language and at the defined widths, assets, contrast (WCAG AA), and existing tests staying green.
 7. **Implement** through the normal sprint flow. The review agent checks against the spec section, not the mockup.
+
+## Tools
+
+The steps are tool-agnostic: which skills and design tools are available depends on the account and environment, and names change. Use whatever produces a quick, reviewable visual mockup.
+
+### Used in the pilot: `anthropic-skills:one-page-offer-builder` (Claude skill)
+
+Invoked with `/anthropic-skills:one-page-offer-builder`; the mockups were published as private Claude artifacts and shared with the client from there.
+
+What worked well:
+- Fast, polished one-page layouts; good typographic pairing, spacing, and section rhythm.
+- Easy to produce two contrasting treatments of the same content side by side.
+
+Its defaults must be overridden in the request, because they conflict with a typical SDD spec:
+
+| Skill default | What to do instead |
+|---|---|
+| Its own brand palette and fonts | Pass the client's sampled hex colors and type style explicitly |
+| A "value stack" pricing block with prices | Remove it unless the spec approves showing prices |
+| Sample testimonials and results | Use "pending" placeholders only; never invented proof or outcomes |
+| Glow, grain, and similar effects | Keep them only if they suit the brand (the pilot's corporate direction dropped them) |
+| React output | Treat it as a visual reference; the project's own stack implements it from the spec |
+
+Practical notes from the pilot:
+- Give it the approved copy and section order from the UX spec, and ask for 2 named proposals (e.g. "A · Institucional", "B · Editorial") in one request.
+- Images must be actual files (attached or committed). Images only pasted inline in chat, and social-media profile links, could not be used from the agent's environment.
+- A logo cropped from a screenshot is only good enough for a mockup; use a typographic stand-in and request the vector file.
+- Check each proposal's text/background pairs for contrast before presenting it.
 
 ## Rules
 
