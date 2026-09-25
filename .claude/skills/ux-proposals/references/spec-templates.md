@@ -13,11 +13,11 @@ Character: <one or two sentences: the feel, what carries weight, the one recurri
 
 ### Color tokens
 
-Source: <sampled from ... / client brand guide>. Implement as theme tokens (<e.g. Tailwind @theme in src/styles/global.css>), replacing the provisional palette; components use tokens, never hex literals.
+Source: <sampled from ... / client brand guide>; derived tokens name their base token in the Source column. Implement as theme tokens (<e.g. Tailwind @theme in src/styles/global.css>), replacing the provisional palette; components use tokens, never hex literals.
 
-| Token | Hex | Use |
-|---|---|---|
-| `<name>` | `#RRGGBB` | <where it is used; restrictions such as "fill only, never text on white"> |
+| Token | Hex | Source | Use |
+|---|---|---|---|
+| `<name>` | `#RRGGBB` | <sampled / client guide / derived from `<token>`> | <where it is used; restrictions such as "fill only, never text on white"> |
 
 Contrast checked with `.claude/skills/ux-proposals/scripts/contrast.py`: <pairs and ratios, or "all text pairs ≥4.5:1">.
 
