@@ -11,6 +11,30 @@ What should the interface make the user feel and accomplish?
 - Visual density:
 - Accessibility considerations:
 
+## 2.1 Visual Identity
+Status: Provisional (theme tokens) / Approved on <date> by <who>. Follow `docs/process/VISUAL_IDENTITY_PROCESS.md`.
+
+Brand inputs received:
+- Existing brand material:
+- Logo file (SVG / transparent PNG):
+- Photos (resolution, consent):
+- Reference sites / things to avoid:
+
+Reference mockup (visual reference only):
+
+### Color tokens
+| Token | Hex | Use |
+|---|---|---|
+
+### Typography
+| Role | Face | Weights |
+|---|---|---|
+
+Type scale:
+
+### Components and motif rules
+-
+
 ## 3. Layout Principles
 -
 
