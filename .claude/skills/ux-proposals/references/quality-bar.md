@@ -23,6 +23,10 @@ Run through this once per proposal. Fix what fails, then present. Don't iterate 
 ## Layout
 - [ ] No horizontal scroll at 360–390 px; hero stacks sensibly; steps stack.
 - [ ] One primary CTA wording, repeated (hero, mid-page, end).
+- [ ] Headline, supporting line, CTA, and a trust cue are above the fold at 1280 px and 390 px.
+- [ ] Form: single column, labels above fields, radio buttons for short option lists, format examples as placeholders only.
+- [ ] Next to submit: what happens next, plus the privacy/consent note.
+- [ ] Contact info and any real external presence (profiles, reviews, media) are easy to find.
 - [ ] Adjacent sections distinguishable (background alternation), consistent side gutter.
 
 ## Craft

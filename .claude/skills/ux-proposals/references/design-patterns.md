@@ -7,37 +7,46 @@ Use this to pick directions (step 3) and to make each one look deliberate. It co
 2. Treatment catalog (pick 2)
 3. Type pairings that work (Google Fonts)
 4. Hero patterns
-5. Section patterns
+5. Section patterns, 5.1 Real-world references
 6. Avoid list
+7. Sources
 
 ---
 
 ## 1. What research consistently says
 
-These hold across sources (conversion studies, NN/g-style usability findings, Baymard form research). Apply them to every direction; they are not style choices.
+These come from usability research and measured tests (sources at the end). Apply them to every direction; they are not style choices.
 
-**Hero**
-- The hero is the highest-impact area. It needs: a headline that states the value plainly (clear beats clever), one supporting line, and one primary CTA visible without scrolling.
-- Put a small trust signal in or right under the hero (e.g. "free initial call", a credential, a data-protection note), and repeat trust near the form.
+**Trust (NN/g, stable across cultures and decades): four factors decide whether a site seems trustworthy**
+1. *Design quality:* organized content, clear labels, and a color scheme that matches the kind of service. Colors alone brand a business as corporate, budget, or luxury. Typos and broken details visibly cost credibility.
+2. *Up-front disclosure:* contact info easy to find, what happens next, what it costs or that the first call is free. Asking for personal data before giving any value breaks trust.
+3. *Comprehensive, current content:* show the real person and the process, not just end results; cover every audience the service claims.
+4. *Connection to the rest of the web:* people trust external reviews and profiles more than on-site testimonials. Link to real external presence (LinkedIn, Google reviews, media) when it exists.
+
+**Hero and scanning**
+- Content above the fold gets far more attention (NN/g: ~84% more). Put headline, one supporting line, the primary CTA, and a trust cue there.
+- Plain, benefit-stating headlines outperform clever ones.
+- People scan in an F-pattern (NN/g eyetracking, desktop and mobile): front-load headings and the first words of lines, keep text left-aligned, and use clear subheadings.
 
 **CTA**
-- One consistent action, repeated: in the hero, mid-page after the value is explained, and at the end. Same wording each time.
-- Action wording ("Book my call", "Take the first step") beats vague wording ("Learn more", "Submit").
+- One action, same wording, repeated: hero, mid-page after the value is explained, and at the end.
+- Action wording ("Book my call") beats vague wording ("Learn more", "Submit"). On mobile, a CTA the visitor doesn't have to scroll back for helps.
 
-**Forms**
-- Ask only what the spec requires; every extra field costs completions. For a considered decision (coaching, advisory, B2B), give context before the form rather than putting the form in the hero.
-- Single column. Labels **above** fields (never placeholder-only labels: they vanish when typing and hide errors). Hints under the label for format rules (e.g. phone with country code).
-- Inline validation after the user leaves a field, not while typing; clear errors as soon as fixed.
-- Show what happens next (e.g. "you'll pick a time in the calendar") near the submit button.
+**Forms (Baymard, CXL)**
+- Remove every field the spec doesn't need; each one adds friction (famous case: removing one optional field was worth $12M/year to Expedia). Prefer one "full name" field over first/last split.
+- Single column: in CXL's test (~700 participants), a single-column form was completed 15.4 seconds faster than a multi-column one.
+- Labels always visible **above** fields. Placeholder-only labels failed in every Baymard usability test: they vanish while typing, and users deleted input just to reread them after an error. Placeholders are fine for format examples (e.g. `+50684104791`).
+- Radio buttons beat dropdowns and multi-selects for short option lists (faster to complete).
+- Validate inline after the user leaves a field, never while they are still typing; clear the error as soon as it's fixed.
+- About 29% of people hesitate over data security on forms: put the privacy/consent note and a short reassurance next to the submit button.
+- Say what happens after submitting (e.g. "you'll pick a time in the calendar").
 
-**Trust for professional services**
-- Generous white space, restrained palette, and good typography read as confidence. Clutter reads as insecurity.
-- A real photo of the person, looking at the camera, outperforms stock imagery. Credentials and real testimonials near decision points.
-- For finance/health/legal, calm beats hype: no fear tactics, no "get rich" imagery.
+**Speed and accessibility**
+- Each extra second of load time measurably lowers conversions: keep proposals light (2 font families max, optimized images, no heavy animation libraries).
+- Text contrast ≥4.5:1 (≥3:1 for large text ≥24px or bold ≥18.5px); UI boundaries ≥3:1. Bright accents (yellow, gold, lime, light cyan) are fills and highlights, not text on white; add a darker text-safe variant.
 
-**Accessibility (also a quality signal)**
-- Text contrast ≥4.5:1 (≥3:1 for large text ≥24px or bold ≥18.5px); UI boundaries ≥3:1.
-- Bright accents (yellow, gold, lime, light cyan) almost never pass as text on white: use them as fills, rules, and highlights behind dark text, and add a darker text-safe variant.
+**Trends vs. fit**
+- 2026 trend reports push saturated color, maximalism, kinetic type, and 3D. Those suit lifestyle and entertainment brands. For finance, health, legal, and coaching, restraint is the deliberate, research-backed choice: borrow at most one current element (e.g. oversized editorial type, a modular grid) per direction.
 
 ## 2. Treatment catalog
 
@@ -86,6 +95,7 @@ Default pairing rule: A = the treatment closest to the client's material; B = th
 |---|---|---|
 | Classic, trustworthy | Crimson Pro / Source Serif 4 | IBM Plex Sans / Source Sans 3 |
 | Elegant, editorial | Cormorant Garamond / Playfair Display | Outfit / Karla |
+| Premium advisory (seen on navy + gold advisor sites) | Cormorant Garamond / Source Serif 4 | Montserrat |
 | Warm, contemporary | Fraunces | Work Sans / DM Sans |
 | Modern, neutral | Manrope / Plus Jakarta Sans | same family |
 | Crisp, technical | Space Grotesk (sparingly) | IBM Plex Sans + IBM Plex Mono for labels |
@@ -114,13 +124,46 @@ Headline: 6–12 words, one idea. Emphasis on part of it (italic/color) is enoug
 
 Rhythm: alternate background tones between adjacent sections (page / white / brand) so sections read as distinct without heavy dividers.
 
+## 5.1 Real-world references
+
+Observed on live sites in curated 2026 collections of financial-advisor, coaching, and personal-brand sites. Use them to calibrate a treatment, never to copy.
+
+**Financial advisory**
+- *Navy + gold is the recurring "trust" palette* (Financial Synergies, Bush Wealth, Matthew James, Wealthspire). The premium versions pair a classic serif with a clean sans: Matthew James uses Cormorant Garamond + Montserrat; Wealthspire uses Publico + Montserrat with blue, dark blue, and gold.
+- *Dark, atmospheric* navy sites (Avivar, Melton & Company, Illumint) read bold and exclusive; they work when paired with warm cream or brown accents and strong photography.
+- *Warm and approachable* alternatives: Stash Wealth (rust/orange on white, lifestyle photos, for young professionals); Creative Planning (teal/navy with cream, team-first "Your Team Awaits"); Bragg (muted green/gray, nature photography, Lora + Roboto).
+- *Structure devices that earn trust:* a three-step process (Bull Moose), numbered service cards and a "by the numbers" band (Coyle; real figures only), credentials displayed prominently (Peak Asset), transparent fees (Timothy Financial Counsel), booking embedded in the page (Bayntree, with Calendly).
+- The standouts show the people: team photos and the founder up front.
+
+**Coaching and personal brands**
+- The effective one-page sequence (Nora DeKeyser): smiling real photo in the hero → media mentions → services → who she is → client feedback.
+- Elegant premium coaching (Matthew Kimberley): dark imagery, elegant fonts, gold accents, testimonials from recognizable people.
+- Simplicity wins (Kelly Keelan, Aaron Ward): hero = title, one line, CTA, portrait; no sections nobody would read.
+- Alternate section background colors to pace a long one-pager (Alice Thorpe); put authority logos right after the hero *only if they are real* (Nesha Woolery).
+
 ## 6. Avoid list
 
 These make proposals look generic or AI-made, or break SDD rules:
 
 - The skill author's or any tool's default brand; purple-to-blue gradient heroes; neon accent on near-black unless the brand is that.
 - Inter/Roboto/Arial as the only face; emoji as icons; every card with the same big radius and shadow; everything centered.
-- Glow orbs, grain, and parallax by default. Add effects only when the treatment calls for it.
+- Glow orbs, grain, parallax, and scroll-animation libraries by default. Add effects only when the treatment calls for it; they cost load time.
 - Stock "handshake/laptop/cash pile" imagery; 3D money illustrations for finance (reads as hype).
 - Invented testimonials, logos, stats, prices, badges, or "as seen in" strips.
 - Lorem ipsum, or copy rewritten "to fit the design": change the design, not the approved copy.
+
+## 7. Sources
+
+Research reviewed September 2026:
+- NN/g, "Trustworthiness in Web Design: 4 Credibility Factors": https://www.nngroup.com/articles/trustworthy-design/
+- NN/g, "F-Shaped Pattern of Reading on the Web": https://www.nngroup.com/articles/f-shaped-pattern-reading-web-content/
+- Baymard, "Mobile Form Usability: Never Use Inline Labels": https://baymard.com/blog/mobile-forms-avoid-inline-labels
+- Baymard, "Form Design": https://baymard.com/blog/form-design
+- CXL, "Form Design Best Practices": https://cxl.com/blog/form-design-best-practices/
+- Landingi, "Landing Page Best Practices": https://landingi.com/landing-page/41-best-practices/
+- FMG, "Financial Advisor Landing Page Examples and Best Practices": https://fmgsuite.com/insights/financial-advisor-landing-page-examples-and-best-practices/
+- Colorlib, "30 Best Financial Advisor Website Examples 2026": https://colorlib.com/wp/financial-advisor-website-examples/
+- Colorlib, "Personal Brand Websites": https://colorlib.com/wp/personal-brands/
+- Really Good Designs, "Coaching Website Design Examples": https://reallygooddesigns.com/coaching-website-design-examples/
+- Figma, "Web Design Trends 2026": https://www.figma.com/resource-library/web-design-trends/
+
