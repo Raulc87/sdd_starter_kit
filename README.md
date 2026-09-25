@@ -67,6 +67,10 @@ The first pilot (`Raulc87/gaby-main-page`) showed that these are usually missing
 - where the sprint deliverable runs (local vs. hosted) and confirmation of the hosting runtime
 - a visual-identity step: build the first prototype on provisional theme tokens, then explore 2 proposals from the client's brand material, record the chosen one in the UX spec, and apply it as its own story
 
+## Bundled skill
+
+`.claude/skills/ux-proposals/` loads automatically in Claude Code for any account working in a repository created from this template. It creates look-and-feel proposals from the project's UX spec and the client's brand material, then drafts the spec section for the chosen direction. See `docs/process/VISUAL_IDENTITY_PROCESS.md`.
+
 ## Agent bootstrap
 
 All implementation and review agents start from `AGENTS.md`.

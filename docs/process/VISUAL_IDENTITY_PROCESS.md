@@ -19,7 +19,7 @@ The first pilot used this sequence: functional prototype first, then 2 visual pr
    - 1–3 reference sites the client likes, and anything to avoid
 2. **Extract the basics** from that material: sample the exact brand colors (hex), identify the typeface style, and note recurring motifs.
 3. **Explore: 2 proposals, 3 at most.**
-   - Build them as quick visual mockups with a design tool or skill (see Tools below). Mockups are references, not production code.
+   - Build them as quick visual mockups with the kit's `ux-proposals` skill or another design tool (see Tools below). Mockups are references, not production code.
    - Each proposal uses the **approved copy and section order** from the UX spec, and differs in treatment (e.g. light/corporate vs. dark/editorial), not in content.
    - Proposals must obey the spec's business rules: no invented testimonials, prices, or outcomes; provisional items visibly marked.
    - Label each mockup as a proposal, and list which assets are provisional.
@@ -35,31 +35,24 @@ The first pilot used this sequence: functional prototype first, then 2 visual pr
 
 ## Tools
 
-The steps are tool-agnostic: which skills and design tools are available depends on the account and environment, and names change. Use whatever produces a quick, reviewable visual mockup.
+### Recommended: the kit's `ux-proposals` skill
 
-### Used in the pilot: `anthropic-skills:one-page-offer-builder` (Claude skill)
+`.claude/skills/ux-proposals/` ships with this kit and loads automatically in Claude Code for any account. It covers steps 2, 3, 5 and 6 of this process (it asks for step 1's inputs; step 4, the decision, stays with the owner):
 
-Invoked with `/anthropic-skills:one-page-offer-builder`; the mockups were published as private Claude artifacts and shared with the client from there.
+- reads the UX spec, business rules, and stack first, and uses the approved copy verbatim
+- samples exact brand colors from the client's material (`scripts/sample_colors.py`)
+- builds 2 (max 3) self-contained HTML proposals that differ in treatment, from a research-backed pattern catalog (`references/design-patterns.md`)
+- enforces the SDD rules: no invented proof, prices, or promises; provisional assets labeled
+- checks contrast (`scripts/contrast.py`, including a text-safe variant for bright accents) and mobile layout before presenting
+- after the owner decides, drafts the Visual Identity section and the "apply visual identity" story (`references/spec-templates.md`) as a PR for approval
 
-What worked well:
-- Fast, polished one-page layouts; good typographic pairing, spacing, and section rhythm.
-- Easy to produce two contrasting treatments of the same content side by side.
+Invoke with `/ux-proposals`, or ask for "look and feel proposals" and it triggers from its description. Any other design tool works too, as long as the output passes `references/quality-bar.md`.
 
-Its defaults must be overridden in the request, because they conflict with a typical SDD spec:
+### Pilot note
 
-| Skill default | What to do instead |
-|---|---|
-| Its own brand palette and fonts | Pass the client's sampled hex colors and type style explicitly |
-| A "value stack" pricing block with prices | Remove it unless the spec approves showing prices |
-| Sample testimonials and results | Use "pending" placeholders only; never invented proof or outcomes |
-| Glow, grain, and similar effects | Keep them only if they suit the brand (the pilot's corporate direction dropped them) |
-| React output | Treat it as a visual reference; the project's own stack implements it from the spec |
-
-Practical notes from the pilot:
-- Give it the approved copy and section order from the UX spec, and ask for 2 named proposals (e.g. "A · Institucional", "B · Editorial") in one request.
-- Images must be actual files (attached or committed). Images only pasted inline in chat, and social-media profile links, could not be used from the agent's environment.
-- A logo cropped from a screenshot is only good enough for a mockup; use a typographic stand-in and request the vector file.
-- Check each proposal's text/background pairs for contrast before presenting it.
+The first pilot used a third-party one-page-offer skill. Most of its defaults (its own palette and brand, pricing blocks, sample testimonials, effects, React output) had to be overridden to fit the spec, which is why the kit now has its own skill instead. Two practical lessons carried into `ux-proposals`:
+- images must be real files: images pasted inline in chat and social-media links could not be used from the agent's environment
+- a logo cropped from a screenshot is only good for a mockup; use a typographic stand-in and request the vector file
 
 ## Rules
 

@@ -1,0 +1,31 @@
+# Quality bar before presenting
+
+Run through this once per proposal. Fix what fails, then present. Don't iterate endlessly: one check, one fix round.
+
+## Spec fidelity
+- [ ] Every section from `UX_UI_DIRECTION.md` is present, in order, with the approved copy verbatim (primary language).
+- [ ] Form fields, options, consent text, and success message match the spec/contract.
+- [ ] Nothing the spec forbids: guaranteed outcomes, invented proof, prices, non-inclusive wording.
+- [ ] Unsupplied proof/credentials/photos are visible "pending" placeholders.
+- [ ] Banner states: proposal name, "visual reference, not production", provisional assets.
+
+## Brand
+- [ ] Colors come from `scripts/sample_colors.py` output or the client's guide (hex noted in the plan), not guesses.
+- [ ] No default palette or branding from any tool or skill.
+- [ ] Logo: real file, or a labeled typographic stand-in.
+
+## Accessibility
+- [ ] `scripts/contrast.py` passes for every text/background pair used (4.5:1 normal text, 3:1 large text and UI boundaries).
+- [ ] Bright accents are never body/label text on light backgrounds; a text-safe variant exists if needed.
+- [ ] Labels above fields; visible focus states; touch targets ≥44 px; images have `alt`.
+- [ ] `prefers-reduced-motion` respected; content visible without animation.
+
+## Layout
+- [ ] No horizontal scroll at 360–390 px; hero stacks sensibly; steps stack.
+- [ ] One primary CTA wording, repeated (hero, mid-page, end).
+- [ ] Adjacent sections distinguishable (background alternation), consistent side gutter.
+
+## Craft
+- [ ] Two directions differ in treatment, not content.
+- [ ] Neither reads as a generic template (check the avoid list in `design-patterns.md`).
+- [ ] Each file is self-contained (opens offline except Google Fonts) and under ~2 MB.
