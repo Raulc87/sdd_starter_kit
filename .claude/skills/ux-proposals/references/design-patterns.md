@@ -33,12 +33,12 @@ These come from usability research and measured tests (sources at the end). Appl
 - Action wording ("Book my call") beats vague wording ("Learn more", "Submit"). On mobile, a CTA the visitor doesn't have to scroll back for helps.
 
 **Forms (Baymard, CXL)**
-- Remove every field the spec doesn't need; each one adds friction (famous case: removing one optional field was worth $12M/year to Expedia). Prefer one "full name" field over first/last split.
+- Remove every field the spec doesn't need; each one adds friction (CXL reports Expedia gained about $12M/year from removing one optional field). Prefer one "full name" field over first/last split.
 - Single column: in CXL's test (~700 participants), a single-column form was completed 15.4 seconds faster than a multi-column one.
 - Labels always visible **above** fields. Placeholder-only labels failed in every Baymard usability test: they vanish while typing, and users deleted input just to reread them after an error. Placeholders are fine for format examples (e.g. `+50684104791`).
 - Radio buttons beat dropdowns and multi-selects for short option lists (faster to complete).
 - Validate inline after the user leaves a field, never while they are still typing; clear the error as soon as it's fixed.
-- About 29% of people hesitate over data security on forms: put the privacy/consent note and a short reassurance next to the submit button.
+- About 29% of people hesitate over data security on forms (Landingi): put the privacy/consent note and a short reassurance next to the submit button.
 - Say what happens after submitting (e.g. "you'll pick a time in the calendar").
 
 **Speed and accessibility**
@@ -154,7 +154,7 @@ These make proposals look generic or AI-made, or break SDD rules:
 
 ## 7. Sources
 
-Research reviewed September 2026. This file summarizes and paraphrases these sources in our own words for design guidance; quoted figures are attributed, and named sites are cited as publicly visible examples, not endorsements. Follow the links for the originals.
+Research reviewed September 2026. This file summarizes and paraphrases these sources in our own words for design guidance; each quoted figure names the organization it comes from (all listed below), and named sites are cited as publicly visible examples, not endorsements. No third-party text is reproduced beyond these short attributed facts. Follow the links for the originals.
 
 - NN/g, "Trustworthiness in Web Design: 4 Credibility Factors": https://www.nngroup.com/articles/trustworthy-design/
 - NN/g, "F-Shaped Pattern of Reading on the Web": https://www.nngroup.com/articles/f-shaped-pattern-reading-web-content/

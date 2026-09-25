@@ -62,7 +62,7 @@ One **self-contained HTML file** per direction, so it opens anywhere and can be 
 - **Placeholders should look designed:** style pending testimonial/credential slots in the proposal's own treatment (quote mark, card, name line) with a short note in the page's language, rather than grey wireframe bars, so the client judges the design and not a wireframe.
 - **Embedded widgets** the spec calls for (scheduler, map, video) appear as a styled placeholder of the right size with a mock-only note.
 - **Banner** at the top: proposal name, that it is a visual reference and not production, and which assets are provisional (in the page's language).
-- Responsive down to 360 px with no horizontal scroll; touch targets ≥44 px; visible focus states; `prefers-reduced-motion` respected.
+- Responsive down to 360 px with no horizontal scroll; touch targets at least 44×44 px; visible focus states; `prefers-reduced-motion` respected.
 - Colors as CSS custom properties named like the future tokens, so the spec section can copy them.
 
 Keep motion minimal and content visible at rest. A reviewer skimming a screenshot must see the whole page.

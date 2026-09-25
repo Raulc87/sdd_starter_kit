@@ -7,6 +7,9 @@ Usage:
 Prints each image's dominant colors as hex with their share of the image,
 then a merged palette across all images. Needs Pillow (`pip install pillow`).
 Near-duplicate colors (e.g. anti-aliasing shades) are merged.
+
+Exit codes: 0 success; 2 usage or input error (no arguments, bad --colors,
+unreadable image, Pillow missing).
 """
 from __future__ import annotations
 
@@ -53,7 +56,11 @@ def main(argv: list[str]) -> int:
     n = 8
     if "--colors" in argv:
         i = argv.index("--colors")
-        n = int(argv[i + 1])
+        try:
+            n = int(argv[i + 1])
+        except (IndexError, ValueError):
+            print("ERROR  --colors needs a whole number, e.g. --colors 6", file=sys.stderr)
+            return 2
         del argv[i:i + 2]
     if not argv:
         print(__doc__)
@@ -61,6 +68,13 @@ def main(argv: list[str]) -> int:
     if Image is None:
         print("Pillow is required: pip install pillow", file=sys.stderr)
         return 2
+    for path in argv:
+        try:
+            with Image.open(path) as probe:
+                probe.verify()
+        except (OSError, ValueError) as exc:  # missing file, directory, or not an image
+            print(f"ERROR  cannot read image {path}: {exc}", file=sys.stderr)
+            return 2
     merged: list[tuple[tuple[int, int, int], float]] = []
     for path in argv:
         print(f"\n{path}")

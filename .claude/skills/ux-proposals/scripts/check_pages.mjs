@@ -24,7 +24,7 @@
 //   point CHROMIUM_PATH at an existing Chrome/Chromium binary (required with
 //   playwright-core unless its browsers were installed).
 import { resolve, basename, join } from 'node:path';
-import { existsSync, mkdirSync } from 'node:fs';
+import { existsSync, mkdirSync, statSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import { pathToFileURL } from 'node:url';
 
@@ -56,7 +56,10 @@ if (outIdx >= 0) {
   args.splice(outIdx, 2);
 }
 if (!args.length) fail('Usage: node check_pages.mjs page.html [...] [--out dir]');
-for (const file of args) if (!existsSync(file)) fail(`file not found: ${file}`);
+for (const file of args) {
+  if (!existsSync(file)) fail(`file not found: ${file}`);
+  if (!statSync(file).isFile()) fail(`not a file: ${file}`);
+}
 
 const pw = await loadPlaywright();
 let browser;
