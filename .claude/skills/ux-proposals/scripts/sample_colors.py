@@ -58,8 +58,10 @@ def main(argv: list[str]) -> int:
         i = argv.index("--colors")
         try:
             n = int(argv[i + 1])
+            if not 1 <= n <= 128:
+                raise ValueError
         except (IndexError, ValueError):
-            print("ERROR  --colors needs a whole number, e.g. --colors 6", file=sys.stderr)
+            print("ERROR  --colors needs a whole number from 1 to 128, e.g. --colors 6", file=sys.stderr)
             return 2
         del argv[i:i + 2]
     if not argv:

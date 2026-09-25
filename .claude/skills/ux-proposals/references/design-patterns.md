@@ -33,7 +33,7 @@ These come from usability research and measured tests (sources at the end). Appl
 - Action wording ("Book my call") beats vague wording ("Learn more", "Submit"). On mobile, a CTA the visitor doesn't have to scroll back for helps.
 
 **Forms (Baymard, CXL)**
-- Remove every field the spec doesn't need; each one adds friction (CXL reports Expedia gained about $12M/year from removing one optional field). Prefer one "full name" field over first/last split.
+- Remove every field the spec doesn't need; each one adds friction (CXL reports Expedia gained about $12M/year in profit after removing the "Company" field from its booking form). Prefer one "full name" field over first/last split.
 - Single column: in CXL's test (~700 participants), a single-column form was completed 15.4 seconds faster than a multi-column one.
 - Labels always visible **above** fields. Placeholder-only labels failed in every Baymard usability test: they vanish while typing, and users deleted input just to reread them after an error. Placeholders are fine for format examples (e.g. `+50684104791`).
 - Radio buttons beat dropdowns and multi-selects for short option lists (faster to complete).
