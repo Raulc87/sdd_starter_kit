@@ -37,9 +37,9 @@ The first pilot used this sequence: functional prototype first, then 2 visual pr
 
 The steps are tool-agnostic: which skills and design tools are available depends on the account and environment, and names change. Use whatever produces a quick, reviewable visual mockup.
 
-### Used in the pilot: `anthropic-skills:one-page-offer-builder` (Claude skill)
+### Used in the pilot: `one-page-offer-builder` (Claude skill, bundled)
 
-Invoked with `/anthropic-skills:one-page-offer-builder`; the mockups were published as private Claude artifacts and shared with the client from there.
+Bundled with this kit in `.claude/skills/` (see `.claude/skills/README.md`), so it is available on any account: invoke `/one-page-offer-builder`. In the pilot it ran from an organization skill (`/anthropic-skills:one-page-offer-builder`); the mockups were published as private Claude artifacts and shared with the client from there.
 
 What worked well:
 - Fast, polished one-page layouts; good typographic pairing, spacing, and section rhythm.
@@ -60,6 +60,10 @@ Practical notes from the pilot:
 - Images must be actual files (attached or committed). Images only pasted inline in chat, and social-media profile links, could not be used from the agent's environment.
 - A logo cropped from a screenshot is only good enough for a mockup; use a typographic stand-in and request the vector file.
 - Check each proposal's text/background pairs for contrast before presenting it.
+
+### For proof sections: `social-proof-card-studio` (Claude skill, bundled)
+
+Once the client supplies real, approved testimonials or results, `/social-proof-card-studio` designs the testimonial and stat cards for the proof section. Pass it the approved brand tokens, and follow the proof rules in `.claude/skills/README.md`: real, consented quotes only, never invented or embellished.
 
 ## Rules
 

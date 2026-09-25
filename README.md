@@ -67,6 +67,10 @@ The first pilot (`Raulc87/gaby-main-page`) showed that these are usually missing
 - where the sprint deliverable runs (local vs. hosted) and confirmation of the hosting runtime
 - a visual-identity step: build the first prototype on provisional theme tokens, then explore 2 proposals from the client's brand material, record the chosen one in the UX spec, and apply it as its own story
 
+## Bundled skills
+
+`.claude/skills/` ships two Claude Code skills that load automatically for any account working in a repository created from this template: `one-page-offer-builder` (visual mockups) and `social-proof-card-studio` (testimonial and stat cards). See `.claude/skills/README.md` for provenance and the rules for using them in an SDD project.
+
 ## Agent bootstrap
 
 All implementation and review agents start from `AGENTS.md`.
