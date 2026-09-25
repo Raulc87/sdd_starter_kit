@@ -43,7 +43,7 @@ The first pilot used this sequence: functional prototype first, then 2 visual pr
 - samples exact brand colors from the client's material (`scripts/sample_colors.py`)
 - builds 2 (max 3) self-contained HTML proposals that differ in treatment, from a research-backed pattern catalog (`references/design-patterns.md`)
 - enforces the SDD rules: no invented proof, prices, or promises; provisional assets labeled
-- checks contrast (`scripts/contrast.py`, including a text-safe variant for bright accents) and mobile layout before presenting
+- checks contrast (`scripts/contrast.py`, including a text-safe variant for bright accents) and layout (`scripts/check_pages.mjs`: screenshots, horizontal overflow, 44×44 px touch targets) before presenting
 - after the owner decides, drafts the Visual Identity section and the "apply visual identity" story (`references/spec-templates.md`) as a PR for approval
 
 Invoke with `/ux-proposals`, or ask for "look and feel proposals" and it triggers from its description. Any other design tool works too, as long as the output passes `references/quality-bar.md`.

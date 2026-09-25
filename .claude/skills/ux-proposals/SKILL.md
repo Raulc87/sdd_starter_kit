@@ -52,10 +52,16 @@ One **self-contained HTML file** per direction, so it opens anywhere and can be 
 - All sections in the spec's order, with the **approved copy verbatim** in the primary language. Show the language switcher if the site is multilingual (visual only is fine).
 - The full conversion path: form with realistic example values, and its success state (a small script toggling `hidden` on submit, with `preventDefault`).
 - **No invented proof or promises:** testimonials, logos, numbers, prices, and credentials are visible "pending" placeholders unless the client supplied real, approved ones. Don't add claims the spec forbids.
-- **Copy the patterns want but the spec lacks** (a "what happens next" line by the submit button, section headings, a trust line in the hero): never write it in silently. Either leave it out, or show it tagged **"Texto propuesto / Proposed copy"** and list it in the presentation for approval. Repeating the spec's primary CTA wording elsewhere on the page is reuse, not new copy. A trust cue must be a fact from the spec or supplied by the client (e.g. a credential, a data-protection statement the spec requires); with nothing else available, the real person's photo and name are the trust cue. Don't state things like "free call" unless the spec says so.
-- **Placeholders should look designed:** style pending testimonial/credential slots in the proposal's own treatment (quote mark, card, name line) with a short note such as "Espacio para testimonio real", rather than grey wireframe bars, so the client judges the design and not a wireframe.
-- **Mock-only notes** (Calendly slot, pending markers, banner) use one consistent visual style (e.g. a dashed tag) and the page's primary language, since the client reads them.
-- A thin banner at the top: proposal name, "visual reference, not production", and which assets are provisional.
+- **Mock-only text uses the page's primary language.** Everything the client reads that is not approved copy (the banner, "proposed copy" tags, pending markers, placeholder notes, notes on embedded widgets) is written in the primary language of the page, in one consistent visual style (e.g. a dashed tag). *Example from the pilot, a Spanish page:* "Texto propuesto", "Pendiente de validación", "Espacio para testimonio real".
+- **Copy the patterns want but the spec lacks** (a "what happens next" line by the submit button, section headings, a trust line in the hero):
+  - Never write it in silently. Either leave it out, or show it with the "proposed copy" tag and list it in the presentation for approval.
+  - Repeating the spec's primary CTA wording elsewhere on the page is reuse, not new copy.
+- **Trust cues** must be facts from the spec or supplied by the client (a credential, a data-protection statement the spec requires, an approved fact such as a free first consultation).
+  - With none available, use the real person's name and role from the spec, plus their photo if supplied (consent permitting).
+  - With nothing at all, leave the trust cue out and list it as missing in the presentation. Never state an offer term the spec doesn't contain.
+- **Placeholders should look designed:** style pending testimonial/credential slots in the proposal's own treatment (quote mark, card, name line) with a short note in the page's language, rather than grey wireframe bars, so the client judges the design and not a wireframe.
+- **Embedded widgets** the spec calls for (scheduler, map, video) appear as a styled placeholder of the right size with a mock-only note.
+- **Banner** at the top: proposal name, that it is a visual reference and not production, and which assets are provisional (in the page's language).
 - Responsive down to 360 px with no horizontal scroll; touch targets ≥44 px; visible focus states; `prefers-reduced-motion` respected.
 - Colors as CSS custom properties named like the future tokens, so the spec section can copy them.
 
@@ -66,7 +72,7 @@ Keep motion minimal and content visible at rest. A reviewer skimming a screensho
 Run the quality gate in `references/quality-bar.md`. At minimum:
 
 - `scripts/contrast.py` on every text/background pair you used; fix failures (usually by adding a darker text-safe variant of an accent, e.g. a "gold-ink" for gold text on white).
-- One look at each page at ~390 px and ~1280 px wide, then one round of fixes. Don't loop. `scripts/check_pages.mjs` does this in one run: full-page screenshots at 360/390/1280, horizontal-overflow check, and touch targets under 44 px (needs Node and `playwright` or `playwright-core`; see the script header).
+- One look at each page at ~390 px and ~1280 px wide, then one round of fixes. Don't loop. `scripts/check_pages.mjs` does this in one run: full-page screenshots at 360/390/1280, horizontal overflow, and touch targets smaller than 44×44 px (inline text links exempt). It needs Node 18+ and `playwright` or `playwright-core` resolvable from the folder you run it in; see the script header for setup.
 - Re-read the copy against the spec: nothing added, nothing dropped.
 
 ### 6. Present for a decision

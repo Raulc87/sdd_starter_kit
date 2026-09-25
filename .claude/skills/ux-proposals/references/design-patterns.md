@@ -154,7 +154,8 @@ These make proposals look generic or AI-made, or break SDD rules:
 
 ## 7. Sources
 
-Research reviewed September 2026:
+Research reviewed September 2026. This file summarizes and paraphrases these sources in our own words for design guidance; quoted figures are attributed, and named sites are cited as publicly visible examples, not endorsements. Follow the links for the originals.
+
 - NN/g, "Trustworthiness in Web Design: 4 Credibility Factors": https://www.nngroup.com/articles/trustworthy-design/
 - NN/g, "F-Shaped Pattern of Reading on the Web": https://www.nngroup.com/articles/f-shaped-pattern-reading-web-content/
 - Baymard, "Mobile Form Usability: Never Use Inline Labels": https://baymard.com/blog/mobile-forms-avoid-inline-labels

@@ -16,7 +16,7 @@ from collections import Counter
 try:
     from PIL import Image
 except ImportError:  # pragma: no cover - environment dependent
-    sys.exit("Pillow is required: pip install pillow")
+    Image = None  # reported in main(), after argument checks
 
 
 def hexify(rgb: tuple[int, int, int]) -> str:
@@ -57,6 +57,9 @@ def main(argv: list[str]) -> int:
         del argv[i:i + 2]
     if not argv:
         print(__doc__)
+        return 2
+    if Image is None:
+        print("Pillow is required: pip install pillow", file=sys.stderr)
         return 2
     merged: list[tuple[tuple[int, int, int], float]] = []
     for path in argv:

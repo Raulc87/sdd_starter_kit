@@ -7,18 +7,18 @@ Run through this once per proposal. Fix what fails, then present. Don't iterate 
 - [ ] Form fields, options, consent text, and success message match the spec/contract.
 - [ ] Nothing the spec forbids: guaranteed outcomes, invented proof, prices, non-inclusive wording.
 - [ ] Unsupplied proof/credentials/photos are visible "pending" placeholders, styled in the proposal's treatment.
-- [ ] No new copy or claims slipped in; any suggested copy is tagged "Texto propuesto / Proposed copy" and listed for approval.
-- [ ] Banner states: proposal name, "visual reference, not production", provisional assets.
+- [ ] No new copy or claims slipped in; any suggested copy carries the "proposed copy" tag (in the page's language) and is listed for approval.
+- [ ] Banner states the proposal name, that it is a visual reference and not production, and the provisional assets, in the page's primary language.
 
 ## Brand
-- [ ] Colors come from `scripts/sample_colors.py` output or the client's guide (hex noted in the plan), not guesses.
+- [ ] Colors come from `scripts/sample_colors.py` output or the client's guide, or are shades/tints derived from those colors and labelled as derived (hex noted in the plan), never guesses.
 - [ ] No default palette or branding from any tool or skill.
 - [ ] Logo: real file, or a labeled typographic stand-in.
 
 ## Accessibility
 - [ ] `scripts/contrast.py` passes for every text/background pair used (4.5:1 normal text, 3:1 large text and UI boundaries).
 - [ ] Bright accents are never body/label text on light backgrounds; a text-safe variant exists if needed.
-- [ ] Labels above fields; visible focus states; touch targets ≥44 px; images have `alt`.
+- [ ] Labels above fields; visible focus states; touch targets at least 44×44 px (inline text links exempt, WCAG 2.5.8); images have `alt`.
 - [ ] `prefers-reduced-motion` respected; content visible without animation.
 
 ## Layout
