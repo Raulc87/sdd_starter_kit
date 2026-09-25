@@ -40,6 +40,8 @@ Read `references/design-patterns.md` (treatment options, page patterns, what res
 - **A, closest to the client's existing material**, refined: what they'd recognize as theirs, done more professionally.
 - **B, a credible stretch**: a different treatment from the catalog that still fits the audience and brand colors.
 
+If the owner describes the feel they want ("more serious", "warmer"), apply it to **both** directions and vary the treatment within it (e.g. an Editorial layout made corporate with a darker derived shade and restrained motifs). Shades or tints derived from a brand color are fine; label them as derived in the spec section.
+
 For each, write a 4-line plan: palette (named hex tokens), type pairing (display / body, Google Fonts), layout idea, one signature motif. Check the plan against the "avoid" list in the patterns reference; if it reads like a generic template, change the part that does.
 
 ### 4. Build each proposal
@@ -50,6 +52,9 @@ One **self-contained HTML file** per direction, so it opens anywhere and can be 
 - All sections in the spec's order, with the **approved copy verbatim** in the primary language. Show the language switcher if the site is multilingual (visual only is fine).
 - The full conversion path: form with realistic example values, and its success state (a small script toggling `hidden` on submit, with `preventDefault`).
 - **No invented proof or promises:** testimonials, logos, numbers, prices, and credentials are visible "pending" placeholders unless the client supplied real, approved ones. Don't add claims the spec forbids.
+- **Copy the patterns want but the spec lacks** (a "what happens next" line by the submit button, section headings, a trust line in the hero): never write it in silently. Either leave it out, or show it tagged **"Texto propuesto / Proposed copy"** and list it in the presentation for approval. Repeating the spec's primary CTA wording elsewhere on the page is reuse, not new copy. A trust cue must be a fact from the spec or supplied by the client (e.g. a credential, a data-protection statement the spec requires); with nothing else available, the real person's photo and name are the trust cue. Don't state things like "free call" unless the spec says so.
+- **Placeholders should look designed:** style pending testimonial/credential slots in the proposal's own treatment (quote mark, card, name line) with a short note such as "Espacio para testimonio real", rather than grey wireframe bars, so the client judges the design and not a wireframe.
+- **Mock-only notes** (Calendly slot, pending markers, banner) use one consistent visual style (e.g. a dashed tag) and the page's primary language, since the client reads them.
 - A thin banner at the top: proposal name, "visual reference, not production", and which assets are provisional.
 - Responsive down to 360 px with no horizontal scroll; touch targets ≥44 px; visible focus states; `prefers-reduced-motion` respected.
 - Colors as CSS custom properties named like the future tokens, so the spec section can copy them.
@@ -61,7 +66,7 @@ Keep motion minimal and content visible at rest. A reviewer skimming a screensho
 Run the quality gate in `references/quality-bar.md`. At minimum:
 
 - `scripts/contrast.py` on every text/background pair you used; fix failures (usually by adding a darker text-safe variant of an accent, e.g. a "gold-ink" for gold text on white).
-- One look at each page at ~390 px and ~1280 px wide (screenshot if a headless browser is available), then one round of fixes. Don't loop.
+- One look at each page at ~390 px and ~1280 px wide, then one round of fixes. Don't loop. `scripts/check_pages.mjs` does this in one run: full-page screenshots at 360/390/1280, horizontal-overflow check, and touch targets under 44 px (needs Node and `playwright` or `playwright-core`; see the script header).
 - Re-read the copy against the spec: nothing added, nothing dropped.
 
 ### 6. Present for a decision
@@ -80,6 +85,8 @@ Draft, using `references/spec-templates.md`:
 
 1. The **Visual Identity** section for `UX_UI_DIRECTION.md` (status approved, date, who decided, reference link, tokens table, typography, components per section, motif rules, asset requirements, open questions).
 2. The **"Apply the approved visual identity"** user story with testable acceptance criteria.
+
+Adapt the section number to the project's UX doc. Where to keep the chosen mockup is the owner's call: files with client photos are personal data, so a private link is often better than committing them.
 
 Docs are owned by the human owner (`AGENTS.md`): deliver these as a PR or a proposed diff for approval, following the repo's branch/PR naming rules. Don't write production code here. Implementation happens in the sprint, and reviewers check it against the spec section, not the mockup.
 

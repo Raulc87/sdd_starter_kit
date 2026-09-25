@@ -6,7 +6,8 @@ Run through this once per proposal. Fix what fails, then present. Don't iterate 
 - [ ] Every section from `UX_UI_DIRECTION.md` is present, in order, with the approved copy verbatim (primary language).
 - [ ] Form fields, options, consent text, and success message match the spec/contract.
 - [ ] Nothing the spec forbids: guaranteed outcomes, invented proof, prices, non-inclusive wording.
-- [ ] Unsupplied proof/credentials/photos are visible "pending" placeholders.
+- [ ] Unsupplied proof/credentials/photos are visible "pending" placeholders, styled in the proposal's treatment.
+- [ ] No new copy or claims slipped in; any suggested copy is tagged "Texto propuesto / Proposed copy" and listed for approval.
 - [ ] Banner states: proposal name, "visual reference, not production", provisional assets.
 
 ## Brand
