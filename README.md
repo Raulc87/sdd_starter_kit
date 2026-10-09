@@ -34,26 +34,20 @@ A reusable starter kit for projects developed with Spec-Driven Development (SDD)
 - Tests and validation must trace back to requirements and acceptance criteria.
 - The least-complex stack that satisfies the requirements should be preferred.
 
-## GitHub usage
-
-This repository should be configured as a GitHub Template Repository.
-
-For a new project:
-
-1. Click **Use this template** in GitHub.
-2. Create a new repository.
-3. Fill `PROJECT_CONTEXT.md`.
-4. Run discovery.
-5. Complete the required specs before implementation begins.
-6. Start agents only after the sprint plan is approved.
-
 ## Starting a new project
 
-1. Create the repository from this template.
-2. Copy each `*_TEMPLATE.md` you need to its working path without the `_TEMPLATE` suffix (see the document map in `AGENTS.md`), e.g. `TECH_STACK_TEMPLATE.md` -> `TECH_STACK.md`, `docs/sprints/SPRINT_PLAN_TEMPLATE.md` -> `docs/sprints/SPRINT_001.md`. Delete templates you do not use.
-3. Fill `PROJECT_CONTEXT.md` with the real repository URL, the project key (e.g. `GK`), and document paths. Branches, PR titles, and commits follow the naming rules in `AGENTS.md` (`<KEY>-<NNN>-<slug>`).
-4. Before each sprint, run `docs/checklists/SPRINT_READINESS_CHECKLIST.md` and record the result in the sprint plan's entry gates.
-5. Start agents only after the human owner gives the go-ahead.
+Step by step, from creating the repository to the first discovery session: **`docs/process/NEW_PROJECT_SETUP.md`**.
+
+In short:
+
+1. One time: mark this repository as a **template** and, for the automated path, add the `PROJECT_BOOTSTRAP_TOKEN` secret.
+2. Create the project repository, either:
+   - **automated:** Actions → **New project** → Run workflow. It creates the repository from this template, protects `main`, and opens a discovery kickoff issue; or
+   - **manual:** **Use this template**, then protect `main`.
+3. Open a new Claude Code session on the new repository and run **`/project-kickoff`**. The skill runs discovery, then proposes the specs, contracts, stack, plan and Sprint 001 as pull requests. No code until you give the go-ahead.
+4. From there: readiness checklist, your go-ahead, implementation agents plus a review-only agent, and you merge (`AGENTS.md`).
+
+Templates end in `_TEMPLATE.md`. A project copies each one it needs to its working path without the suffix (see the document map in `AGENTS.md`) and deletes the rest. Branches, PR titles and commits use the project key (`<KEY>-<NNN>-<slug>`).
 
 ## Lessons from the first pilot
 
@@ -67,9 +61,12 @@ The first pilot (`Raulc87/gaby-main-page`) showed that these are usually missing
 - where the sprint deliverable runs (local vs. hosted) and confirmation of the hosting runtime
 - a visual-identity step: build the first prototype on provisional theme tokens, then explore 2 proposals from the client's brand material, record the chosen one in the UX spec, and apply it as its own story
 
-## Bundled skill
+## Bundled skills
 
-`.claude/skills/ux-proposals/` loads automatically in Claude Code for any account working in a repository created from this template. It creates look-and-feel proposals from the project's UX spec and the client's brand material, then drafts the spec section for the chosen direction. See `docs/process/VISUAL_IDENTITY_PROCESS.md`.
+These load automatically in Claude Code for any account working in a repository created from this template.
+
+- `.claude/skills/project-kickoff/`: runs discovery for a new project and proposes the first documents and Sprint 001 as pull requests. See `docs/process/NEW_PROJECT_SETUP.md`.
+- `.claude/skills/ux-proposals/`: creates look-and-feel proposals from the project's UX spec and the client's brand material, then drafts the spec section for the chosen direction. See `docs/process/VISUAL_IDENTITY_PROCESS.md`.
 
 ## Agent bootstrap
 

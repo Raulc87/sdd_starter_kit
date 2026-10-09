@@ -1,0 +1,158 @@
+# Creates a new project repository from this Starter Kit, protects `main`,
+# and opens a discovery kickoff issue. Runs only in the template repository
+# itself (repositories created from it keep the file but skip the job).
+# Setup and usage: docs/process/NEW_PROJECT_SETUP.md
+name: New project
+
+on:
+  workflow_dispatch:
+    inputs:
+      repo_name:
+        description: "New repository name (lowercase letters, digits, - _ .)"
+        required: true
+        type: string
+      project_key:
+        description: "Project key, 2-5 uppercase letters (e.g. ACM)"
+        required: true
+        type: string
+      project_name:
+        description: "Human-readable project name"
+        required: true
+        type: string
+      client:
+        description: "Client / stakeholder (name, role)"
+        required: false
+        type: string
+      raw_requirement:
+        description: "Raw requirement in a few lines (discovery asks for the rest)"
+        required: false
+        type: string
+      visibility:
+        description: "Repository visibility"
+        required: true
+        default: private
+        type: choice
+        options: [private, public]
+      owner:
+        description: "Owner account or organization (empty = this repository's owner)"
+        required: false
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  create:
+    if: github.event.repository.is_template == true
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.PROJECT_BOOTSTRAP_TOKEN }}
+      TEMPLATE: ${{ github.repository }}
+      REPO_NAME: ${{ inputs.repo_name }}
+      PROJECT_KEY: ${{ inputs.project_key }}
+      PROJECT_NAME: ${{ inputs.project_name }}
+      CLIENT: ${{ inputs.client }}
+      RAW_REQUIREMENT: ${{ inputs.raw_requirement }}
+      VISIBILITY: ${{ inputs.visibility }}
+      OWNER_INPUT: ${{ inputs.owner }}
+      DEFAULT_OWNER: ${{ github.repository_owner }}
+    steps:
+      - name: Validate inputs
+        run: |
+          set -euo pipefail
+          if [ -z "${GH_TOKEN}" ]; then
+            echo "::error::Secret PROJECT_BOOTSTRAP_TOKEN is not set (docs/process/NEW_PROJECT_SETUP.md, step 0)."
+            exit 1
+          fi
+          if ! [[ "${REPO_NAME}" =~ ^[a-z0-9][a-z0-9._-]{0,99}$ ]]; then
+            echo "::error::repo_name must use lowercase letters, digits, '-', '_' or '.'"
+            exit 1
+          fi
+          if ! [[ "${PROJECT_KEY}" =~ ^[A-Z]{2,5}$ ]]; then
+            echo "::error::project_key must be 2-5 uppercase letters"
+            exit 1
+          fi
+          OWNER="${OWNER_INPUT:-$DEFAULT_OWNER}"
+          if ! [[ "${OWNER}" =~ ^[A-Za-z0-9-]{1,39}$ ]]; then
+            echo "::error::owner is not a valid GitHub account name"
+            exit 1
+          fi
+          echo "OWNER=${OWNER}" >> "$GITHUB_ENV"
+
+      - name: Create the repository from the template
+        run: |
+          set -euo pipefail
+          PRIVATE=true
+          [ "${VISIBILITY}" = "public" ] && PRIVATE=false
+          gh api -X POST "repos/${TEMPLATE}/generate" \
+            -f owner="${OWNER}" \
+            -f name="${REPO_NAME}" \
+            -f description="${PROJECT_NAME}" \
+            -F private="${PRIVATE}" \
+            -F include_all_branches=false > /dev/null
+          # Generation is asynchronous: wait until the files are there.
+          for i in $(seq 1 30); do
+            if gh api "repos/${OWNER}/${REPO_NAME}/contents/AGENTS.md" > /dev/null 2>&1; then
+              echo "Repository ready: https://github.com/${OWNER}/${REPO_NAME}"
+              exit 0
+            fi
+            sleep 2
+          done
+          echo "::error::Repository was created but its files did not appear within 60 seconds."
+          exit 1
+
+      - name: Protect main
+        run: |
+          set -uo pipefail
+          if jq -n '{
+                required_status_checks: null,
+                enforce_admins: false,
+                required_pull_request_reviews: {required_approving_review_count: 0},
+                restrictions: null,
+                allow_force_pushes: false,
+                allow_deletions: false
+              }' | gh api -X PUT "repos/${OWNER}/${REPO_NAME}/branches/main/protection" --input - > /dev/null; then
+            echo "main is protected: pull request required, no force pushes or deletions."
+            echo "PROTECTED=yes" >> "$GITHUB_ENV"
+          else
+            echo "::warning::Could not protect main (private repositories on a free plan do not support it). Protect it manually: Settings > Rules or Branches."
+            echo "PROTECTED=no" >> "$GITHUB_ENV"
+          fi
+
+      - name: Open the discovery kickoff issue
+        run: |
+          set -euo pipefail
+          BODY=$(jq -rn \
+            --arg name "${PROJECT_NAME}" \
+            --arg key "${PROJECT_KEY}" \
+            --arg client "${CLIENT:-to be confirmed}" \
+            --arg req "${RAW_REQUIREMENT:-to be described in discovery}" \
+            --arg vis "${VISIBILITY}" \
+            --arg prot "${PROTECTED}" \
+            --arg tpl "https://github.com/${TEMPLATE}" \
+            '"Created from the SDD Starter Kit (\($tpl)) by the \"New project\" workflow.\n\n" +
+             "## Owner input\n\n" +
+             "- Project: \($name)\n- Project key: `\($key)`\n- Client / stakeholder: \($client)\n- Visibility: \($vis)\n- `main` protected by the workflow: \($prot)\n\n" +
+             "### Raw requirement\n\n\($req)\n\n" +
+             "## Next steps (owner)\n\n" +
+             "1. Give the Claude GitHub app access to this repository if it is limited to selected repositories.\n" +
+             "2. Optional: enable your automated PR reviewer for this repository.\n" +
+             "3. If `main` is not protected yet, protect it (pull request required, no force pushes or deletions).\n" +
+             "4. Start a new Claude Code session on this repository and send `/project-kickoff` (or \"Run the project-kickoff skill\"), mentioning this issue.\n\n" +
+             "The session runs discovery and proposes the documents as pull requests on `\($key)-DOCS-<slug>` branches. Agents never merge; you do, after approval.\n\n" +
+             "Guide: `docs/process/NEW_PROJECT_SETUP.md`."')
+          URL=$(jq -n --arg t "[${PROJECT_KEY}-DOCS] Discovery kickoff" --arg b "${BODY}" '{title: $t, body: $b}' \
+            | gh api -X POST "repos/${OWNER}/${REPO_NAME}/issues" --input - --jq .html_url)
+          echo "ISSUE_URL=${URL}" >> "$GITHUB_ENV"
+
+      - name: Summary
+        run: |
+          {
+            echo "## New project created"
+            echo ""
+            echo "- Repository: https://github.com/${OWNER}/${REPO_NAME}"
+            echo "- Kickoff issue: ${ISSUE_URL}"
+            echo "- \`main\` protected: ${PROTECTED}"
+            echo ""
+            echo "Next: open a new Claude Code session on the repository and run \`/project-kickoff\`."
+          } >> "$GITHUB_STEP_SUMMARY"
