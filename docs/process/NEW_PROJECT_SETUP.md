@@ -7,7 +7,7 @@ How to start a new project from this Starter Kit, from an empty GitHub account t
 1. **Make the kit a template repository:** GitHub → this repository → **Settings → General** → tick **Template repository**. Without this, neither path below works.
 2. **For the automated path only, add a token the workflow can use to create repositories:**
    - Create a token: GitHub → **Settings → Developer settings → Personal access tokens**.
-     - *Fine-grained (recommended):* resource owner = the account or organization that will own new projects; repository access = **All repositories**; permissions: **Administration: Read and write**, **Contents: Read and write**, **Issues: Read and write**. The workflow creates the repository, protects `main`, and opens the kickoff issue.
+     - *Fine-grained (recommended):* resource owner = the account or organization that will own new projects; repository access = **All repositories**; permissions: **Administration: Read and write** (create the repository, protect `main`), **Contents: Read-only** (read the template), **Issues: Read and write** (open the kickoff issue). Nothing more: the token covers every repository you own, so keep its permissions minimal.
      - *Classic:* scope `repo`.
    - Give it an expiry date and renew it when it expires. Never paste it into an issue, a prompt, or a file.
 3. **Store the token in a protected environment, not as a repository secret.** The token can create and administer repositories across the whole account, so only runs you approve, from `main`, may read it:
@@ -16,7 +16,7 @@ How to start a new project from this Starter Kit, from an empty GitHub account t
    - **Deployment branches and tags:** choose **Selected branches and tags** and add the rule `main`. A workflow edited on any other branch can never read the token.
    - **Environment secrets → Add environment secret:** name `PROJECT_BOOTSTRAP_TOKEN`, value = the token.
    - If you already created a repository secret with that name (Settings → Secrets and variables → Actions → Repository secrets), delete it.
-   - Keep the list of people with write access to this repository short. Required reviewers on environments are free for public repositories; a private template needs a paid plan for them.
+   - Required reviewers on environments are available for **public** repositories on every plan, but for **private** repositories only on GitHub Enterprise. If you keep this kit private without Enterprise, the approval gate cannot be enabled: then keep yourself as the only person with write access to the kit (anyone with write access could run the workflow with your token), or skip the automated path and use the manual one.
 
 ## 1. Create the repository
 
