@@ -2,6 +2,11 @@
 # and opens a discovery kickoff issue. Runs only in the template repository
 # itself (repositories created from it keep the file but skip the job).
 # Setup and usage: docs/process/NEW_PROJECT_SETUP.md
+#
+# The token is an environment secret of `project-bootstrap`, never a repository
+# secret: the environment only releases it to runs from `main` (deployment
+# branch rule) after the owner approves the run (required reviewer), so a
+# workflow edited on another branch cannot read it.
 name: New project
 
 on:
@@ -43,8 +48,9 @@ permissions:
 
 jobs:
   create:
-    if: github.event.repository.is_template == true
+    if: github.event.repository.is_template == true && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
+    environment: project-bootstrap
     env:
       GH_TOKEN: ${{ secrets.PROJECT_BOOTSTRAP_TOKEN }}
       TEMPLATE: ${{ github.repository }}
@@ -61,7 +67,7 @@ jobs:
         run: |
           set -euo pipefail
           if [ -z "${GH_TOKEN}" ]; then
-            echo "::error::Secret PROJECT_BOOTSTRAP_TOKEN is not set (docs/process/NEW_PROJECT_SETUP.md, step 0)."
+            echo "::error::Secret PROJECT_BOOTSTRAP_TOKEN is not set in the project-bootstrap environment (docs/process/NEW_PROJECT_SETUP.md, step 0)."
             exit 1
           fi
           if ! [[ "${REPO_NAME}" =~ ^[a-z0-9][a-z0-9._-]{0,99}$ ]]; then
@@ -106,13 +112,13 @@ jobs:
           set -uo pipefail
           if jq -n '{
                 required_status_checks: null,
-                enforce_admins: false,
+                enforce_admins: true,
                 required_pull_request_reviews: {required_approving_review_count: 0},
                 restrictions: null,
                 allow_force_pushes: false,
                 allow_deletions: false
               }' | gh api -X PUT "repos/${OWNER}/${REPO_NAME}/branches/main/protection" --input - > /dev/null; then
-            echo "main is protected: pull request required, no force pushes or deletions."
+            echo "main is protected for everyone, administrators included: pull request required, no force pushes or deletions."
             echo "PROTECTED=yes" >> "$GITHUB_ENV"
           else
             echo "::warning::Could not protect main (private repositories on a free plan do not support it). Protect it manually: Settings > Rules or Branches."

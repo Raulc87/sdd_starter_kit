@@ -40,7 +40,7 @@ Step by step, from creating the repository to the first discovery session: **`do
 
 In short:
 
-1. One time: mark this repository as a **template** and, for the automated path, add the `PROJECT_BOOTSTRAP_TOKEN` secret.
+1. One time: mark this repository as a **template** and, for the automated path, store the `PROJECT_BOOTSTRAP_TOKEN` in the protected `project-bootstrap` environment (owner approval, `main` only).
 2. Create the project repository, either:
    - **automated:** Actions → **New project** → Run workflow. It creates the repository from this template, protects `main`, and opens a discovery kickoff issue; or
    - **manual:** **Use this template**, then protect `main`.
