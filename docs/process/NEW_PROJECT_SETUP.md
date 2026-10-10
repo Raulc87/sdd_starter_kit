@@ -13,6 +13,7 @@ How to start a new project from this Starter Kit, from an empty GitHub account t
 3. **Store the token in a protected environment, not as a repository secret.** The token can create and administer repositories across the whole account, so only runs you approve, from `main`, may read it:
    - This repository → **Settings → Environments → New environment**, name `project-bootstrap`.
    - **Required reviewers:** add yourself. Every run then waits for your approval before it can read the token.
+   - **Allow administrators to bypass configured protection rules:** untick it. By default, any administrator of this repository could skip your approval and release the token; with it unticked, nobody can, you included.
    - **Deployment branches and tags:** choose **Selected branches and tags** and add the rule `main`. A workflow edited on any other branch can never read the token.
    - **Environment secrets → Add environment secret:** name `PROJECT_BOOTSTRAP_TOKEN`, value = the token.
    - If you already created a repository secret with that name (Settings → Secrets and variables → Actions → Repository secrets), delete it.
