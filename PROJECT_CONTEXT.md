@@ -17,7 +17,7 @@ List the real paths (see the document map in `AGENTS.md`). Write "Not required" 
 - Feature specs:
 - Architecture spec:
 - UX/UI direction: `docs/ux/UX_UI_DIRECTION.md`
-- Content (visitor-facing copy): `docs/ux/CONTENT.md`
+- Content (visitor-facing copy): `docs/ux/CONTENT.md` (projects with visitor-facing copy; otherwise "Not required")
 - Runbooks: `docs/runbooks/` (`LOCAL_DEVELOPMENT.md`, `RELEASE.md`, `DEPLOYMENT.md`, ...)
 - Tech stack: `TECH_STACK.md`
 - ADRs: `docs/decisions/`

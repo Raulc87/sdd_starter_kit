@@ -45,7 +45,7 @@ Normally automatic: publishing a release runs the deploy workflow for that tag (
 
 ## 4. Rollback
 
-1. Re-run the deploy for the previous release tag (Actions → <deploy workflow> → Run workflow → the previous tag, e.g. `v1.2.3`), or re-publish it. Expected: the run is green and the site shows the previous version.
+1. Re-run the deploy for the previous release tag (Actions → <deploy workflow> → Run workflow → the previous tag, e.g. `v1.2.3`). The deploy workflow therefore needs a manual trigger (`workflow_dispatch`) that takes a tag, besides `release: published`; a release that is already published cannot simply be published again. Expected: the run is green and the site shows the previous version.
 2. Run the smoke test (`RELEASE.md` section 4).
 3. Fix forward on `main` and release again.
 
