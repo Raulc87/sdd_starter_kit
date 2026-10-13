@@ -16,7 +16,7 @@ The point of the proposals is a **decision**, not a pretty file. A good proposal
 Designs that ignore the spec get rejected or, worse, approved and then contradict it. Read, in this order, using the paths listed in `PROJECT_CONTEXT.md`:
 
 - `docs/ux/UX_UI_DIRECTION.md`: section order, languages, anchors, imagery rules, anything already decided about visuals.
-- The **approved copy**: `docs/ux/CONTENT.md` when the project has one (the only copy source), otherwise the copy in `UX_UI_DIRECTION.md`. Use it verbatim.
+- The **approved copy**: the copy source `PROJECT_CONTEXT.md` names (`docs/ux/CONTENT.md` by default; a project that predates it may name another file and section). It is the only copy source. Use it verbatim.
 - `docs/specs/PROJECT_SPEC.md`: audience, business rules. Note rules that constrain design, e.g. "no guaranteed outcomes", "neutral language", "no pricing shown".
 - `TECH_STACK.md`: what will implement this (so tokens map cleanly, e.g. Tailwind theme tokens).
 - `AGENTS.md`: who owns docs; you propose doc changes, you don't silently change specs.
@@ -50,7 +50,7 @@ For each, write a 4-line plan: palette (named hex tokens), type pairing (display
 One **self-contained HTML file** per direction, so it opens anywhere and can be shared as-is:
 
 - Inline CSS; fonts from Google Fonts with fallback stacks; images embedded as data URIs (resize photos first; keep each file well under 2 MB); no other external requests.
-- All sections in the spec's order, with the **approved copy verbatim** (from `CONTENT.md`, or `UX_UI_DIRECTION.md` if there is no `CONTENT.md`) in the primary language. Show the language switcher if the site is multilingual (visual only is fine).
+- All sections in the spec's order, with the **approved copy verbatim** (from the copy source `PROJECT_CONTEXT.md` names) in the primary language. Show the language switcher if the site is multilingual (visual only is fine).
 - The full conversion path: form with realistic example values, and its success state (a small script toggling `hidden` on submit, with `preventDefault`).
 - **No invented proof or promises:** testimonials, logos, numbers, prices, and credentials are visible "pending" placeholders unless the client supplied real, approved ones. Don't add claims the spec forbids.
 - **Mock-only text uses the page's primary language.** Everything the client reads that is not approved copy (the banner, "proposed copy" tags, pending markers, placeholder notes, notes on embedded widgets) is written in the primary language of the page, in one consistent visual style (e.g. a dashed tag). *Example from the pilot, a Spanish page:* "Texto propuesto", "Pendiente de validación", "Espacio para testimonio real".
