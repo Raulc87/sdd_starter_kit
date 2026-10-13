@@ -45,7 +45,7 @@ If code conflicts with an approved spec, the spec wins unless the spec is explic
 | Implementation plan | `docs/plans/IMPLEMENTATION_PLAN.md` | Always |
 | Sprint plans | `docs/sprints/SPRINT_<NNN>.md` (the active one is named in `PROJECT_CONTEXT.md`) | Always |
 | Readiness checklist | `docs/checklists/SPRINT_READINESS_CHECKLIST.md` | Before every sprint |
-| Runbooks | `docs/runbooks/` (e.g. `LOCAL_DEVELOPMENT.md`, `RELEASE.md`, `DEPLOYMENT.md`) | From the first sprint that runs or deploys something |
+| Runbooks | `docs/runbooks/` (e.g. `LOCAL_DEVELOPMENT.md`, `RELEASE.md`, `DEPLOYMENT.md`), written per `docs/process/RUNBOOK_STYLE.md` | From the first sprint that runs or deploys something |
 
 Templates in the Starter Kit end in `_TEMPLATE.md`. When a project instantiates one, it copies the file to the path above without the `_TEMPLATE` suffix.
 
@@ -212,3 +212,5 @@ If implementation reveals a requirement change:
 4. Then update code.
 
 Never silently change product behavior in code.
+
+`main` is never red. If a test enforces that code matches a document (for example the translation files must equal `docs/ux/CONTENT.md`), a docs-only PR would fail it. Then the implementation PR targets the docs branch and merges into it first, and the docs PR merges to `main` carrying both.

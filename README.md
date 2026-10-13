@@ -77,7 +77,12 @@ The second pilot (`Raulc87/DigitalStrike-main-page`) went live with a release pr
 - a holding page on the production domain until the first release
 - required CI checks on `main` once CI exists
 - all visitor-facing copy in one keyed file per language, `docs/ux/CONTENT.md` (`docs/ux/CONTENT_TEMPLATE.md`), separate from the UX direction
-- a coordinator session that can launch the agent sessions itself after the owner's go-ahead
+- a coordinator session that launches the agent sessions after the owner's go-ahead and coordinates the sprint (relays decisions, routes PR events, checks in, recovers stories paused by usage limits); agent prompts from `docs/sprints/SPRINT_AGENT_PROMPTS_TEMPLATE.md`, with a reviewer that states its file coverage and re-reviews every push
+- a deployment runbook with a dry run before the first release, secrets kept separate from non-sensitive variables, and the server's full host name rather than a suggested alias (`docs/runbooks/DEPLOYMENT_TEMPLATE.md`)
+- owner runbooks that are copy-paste safe on macOS and Windows (`docs/process/RUNBOOK_STYLE.md`)
+- transactional email tested for real delivery to Gmail and Outlook before release, checked in the provider's log; copy never claims an email was sent when sending can fail
+- hosts that inject their own scripts or cookies: check a fresh-profile page load before writing the privacy notice
+- docs-first changes that a doc↔code sync test would turn red: the implementation PR merges into the docs branch first, so `main` is never red (`AGENTS.md` → Change management)
 
 ## Bundled skill
 

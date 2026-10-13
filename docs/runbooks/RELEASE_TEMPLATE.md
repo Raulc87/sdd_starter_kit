@@ -1,6 +1,6 @@
 # RELEASE — preview, release and production smoke test (owner runbook)
 
-For: <owner>. How a change goes from a merged PR to production, how to check it, and how to undo it. Hosting-specific setup (accounts, secrets, upload, rollback commands) lives in `docs/runbooks/DEPLOYMENT.md`. Record the branching and release model in an ADR (e.g. `ADR-<NNN>_BRANCHING_AND_RELEASE_MODEL.md`); this runbook implements it.
+For: <owner>. How a change goes from a merged PR to production, how to check it, and how to undo it. Written in the style of `docs/process/RUNBOOK_STYLE.md`. Hosting-specific setup (accounts, secrets, upload, rollback commands) lives in `docs/runbooks/DEPLOYMENT.md`. Record the branching and release model in an ADR (start from `docs/decisions/ADR_BRANCHING_AND_RELEASE_TEMPLATE.md`); this runbook implements it.
 
 ## 0. The model (default; change it only through the ADR)
 
@@ -63,7 +63,10 @@ Right after each release; write the date, version and results in the release des
 - HTTP redirects to HTTPS on every hostname; every language loads.
 - The main flow works end to end with a real submission, which lands in the **production** store; then mark or delete it.
 - Provisional-content badges are not shown; the page is indexable.
-- <Project-specific checks: scheduler, emails, spam protection, logs.>
+- **Cookies and third parties:** in a fresh browser profile (private window), load the page and compare the cookies set and the third-party domains contacted with the baseline disclosed in the privacy notice. Hosts can inject their own scripts and cookies; anything new is a privacy-notice change before launch.
+- **Transactional email (if any):** a real submission delivers to an external Gmail and an Outlook inbox; check the provider's delivery log, not only "sent", and whether it landed in spam.
+- **Performance:** the CI Lighthouse run on our own build is the gate; production scores (which include host-injected scripts) are recorded in the release, not used as a gate.
+- <Project-specific checks: scheduler, spam protection, logs.>
 
 If any check fails: roll back to the previous tag (`DEPLOYMENT.md`), then fix forward.
 
@@ -72,6 +75,8 @@ If any check fails: roll back to the previous tag (`DEPLOYMENT.md`), then fix fo
 2. Fix on a `<KEY>-FIX-<slug>` branch from it; open the PR **against `release/vX.Y.x`**; CI and the review-only agent run as usual; the owner merges.
 3. Publish `vX.Y.Z+1` with **target `release/vX.Y.x`**; smoke test.
 4. Bring the fix to `main` in a normal PR so the next release keeps it.
+
+Gate for a release-branch patch (it replaces section 3's "CI green on `main`" and "preview checked", which a release branch cannot meet): the fix PR's required checks are green on its head, the PR is up to date with the release branch so the merged commit is the one CI tested, and the production smoke test right after the deploy passes, with rollback to the previous tag if it fails. `release/*` needs the same protection rule as `main`, including "require branches to be up to date", and CI must run on pushes to `release/**`.
 
 When `main` has nothing unreleased, fix on `main` and release from there.
 
