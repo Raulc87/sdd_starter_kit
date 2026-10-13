@@ -44,7 +44,7 @@ GitHub → this repository → **Actions → New project → Run workflow** (bra
 
 The run waits for your approval (**Review deployments → project-bootstrap → Approve and deploy**). Then the workflow:
 1. creates the repository from this template;
-2. protects `main` for everyone, administrators included: pull request required, no force pushes or deletions. You still merge your own PRs (no approving review is required), but nobody, you included, can push straight to `main`. On a private repository of a free GitHub plan, branch protection is not available; the run then shows a warning and you protect `main` later or make the repository public;
+2. protects `main` for everyone, administrators included, and reads the rule back to confirm it is active: pull request required, no force pushes or deletions. You still merge your own PRs (no approving review is required), but nobody, you included, can push straight to `main`. On a private repository of a free GitHub plan, branch protection is not available; the run then shows a warning and you protect `main` later or make the repository public;
 3. opens a **kickoff issue** in the new repository with your inputs and the instructions for step 2.
 
 The run summary links to the new repository and the issue.
@@ -72,7 +72,7 @@ or, if slash commands are not available, "Run the project-kickoff skill." If you
 
 The `project-kickoff` skill (`.claude/skills/project-kickoff/`) reads the kit's rules, asks the discovery questions in batches, and only after your answers proposes the specs, contracts, stack, plan, and Sprint 001 as pull requests on `<KEY>-DOCS-<slug>` branches. It never implements code and never merges.
 
-Use one session per project. Do not reuse a session from another project: the context would mix.
+Use one session per project. Do not reuse a session from another project: the context would mix. This session becomes the project's **coordinator**: it plans, launches the agents after your go-ahead, relays your decisions, and checks in on them (step 4). Agent sessions stay on one sprint each and are archived afterwards.
 
 ## 4. From discovery to delivery
 
@@ -81,11 +81,12 @@ The same loop as the first pilot:
 1. Discovery Q&A (step 3).
 2. Spec PRs on `<KEY>-DOCS-…` branches; you review and merge.
 3. Readiness check (`docs/checklists/SPRINT_READINESS_CHECKLIST.md`); you give the go-ahead.
-4. Up to 3 implementation agents, each in its own session, with the prompts the planning session gives you; a review-only agent in another session. If the planning session can create sessions, it offers to launch them for you after your go-ahead; otherwise paste each prompt into a new session.
-5. You merge after approval. Agents never merge. **As soon as the first CI workflow is merged, make its checks required on `main`** (Settings → Rules → the `main` rule → Require status checks to pass → add each check, e.g. lint, typecheck, unit tests, build, e2e). The bootstrap workflow cannot do this, because no checks exist yet when the repository is created.
+4. Up to 3 implementation agents, each in its own session, with the prompts the planning session gives you; a review-only agent in another session. If the planning session can create sessions, it offers to launch them for you after your go-ahead; otherwise paste each prompt into a new session. The planning session then **coordinates**: it relays your decisions to the agents (and records them in docs PRs), checks in every few hours, notices agents paused by usage limits, and asks the reviewer for reviews. Each PR's GitHub events go to its author agent only.
+5. You merge after approval. Agents never merge. **As soon as the first CI workflow is merged, make its checks required on `main`** (Settings → Rules → the `main` rule → Require status checks to pass → add each check, e.g. lint, typecheck, unit tests, build, e2e). Also turn on **Require branches to be up to date before merging**, and if the project uses `release/*` branches (its branching ADR), give them the same rule. If you use a **ruleset**, check that its **Enforcement status is Active**: new rulesets can be saved disabled. The bootstrap workflow cannot add checks, because none exist yet when the repository is created.
 6. Local run of the prototype (the project's local-development runbook).
 7. Visual identity with the `ux-proposals` skill (`docs/process/VISUAL_IDENTITY_PROCESS.md`).
 8. Deployment and go-live through the project's own runbook and go-live gate. Keep previews and tests away from production data: a preview or staging site posts to its own sheet, database or endpoint, never the production one.
+9. After each release: record the smoke test in the release, open the next sprint plan with the follow-ups (performance findings, missing assets, flaky tests, fallbacks such as the holding page), and archive the finished sprint's agent sessions.
 
 ## Troubleshooting
 

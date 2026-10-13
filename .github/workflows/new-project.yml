@@ -117,11 +117,14 @@ jobs:
                 restrictions: null,
                 allow_force_pushes: false,
                 allow_deletions: false
-              }' | gh api -X PUT "repos/${OWNER}/${REPO_NAME}/branches/main/protection" --input - > /dev/null; then
-            echo "main is protected for everyone, administrators included: pull request required, no force pushes or deletions."
+              }' | gh api -X PUT "repos/${OWNER}/${REPO_NAME}/branches/main/protection" --input - > /dev/null \
+             && gh api "repos/${OWNER}/${REPO_NAME}/branches/main/protection" \
+                  --jq '(.required_pull_request_reviews != null) and .enforce_admins.enabled and (.allow_force_pushes.enabled | not)' \
+                | grep -qx true; then
+            echo "main is protected for everyone, administrators included (verified): pull request required, no force pushes or deletions."
             echo "PROTECTED=yes" >> "$GITHUB_ENV"
           else
-            echo "::warning::Could not protect main (private repositories on a free plan do not support it). Protect it manually: Settings > Rules or Branches."
+            echo "::warning::Could not protect main, or the rule did not read back as active (private repositories on a free plan do not support it). Protect it manually: Settings > Rules or Branches, and check it is active."
             echo "PROTECTED=no" >> "$GITHUB_ENV"
           fi
 
@@ -144,7 +147,8 @@ jobs:
              "1. Give the Claude GitHub app access to this repository if it is limited to selected repositories.\n" +
              "2. Optional: enable your automated PR reviewer for this repository.\n" +
              "3. If `main` is not protected yet, protect it (pull request required, no force pushes or deletions).\n" +
-             "4. Start a new Claude Code session on this repository and send `/project-kickoff` (or \"Run the project-kickoff skill\"), mentioning this issue.\n\n" +
+             "4. Have ready, or decide during discovery: the hosting, domain and email accounts the project will use, and who owns each.\n" +
+             "5. Start a new Claude Code session on this repository and send `/project-kickoff` (or \"Run the project-kickoff skill\"), mentioning this issue.\n\n" +
              "The session runs discovery and proposes the documents as pull requests on `\($key)-DOCS-<slug>` branches. Agents never merge; you do, after approval.\n\n" +
              "Guide: `docs/process/NEW_PROJECT_SETUP.md`."')
           URL=$(jq -n --arg t "[${PROJECT_KEY}-DOCS] Discovery kickoff" --arg b "${BODY}" '{title: $t, body: $b}' \
