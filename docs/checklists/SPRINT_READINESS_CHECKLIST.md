@@ -37,7 +37,8 @@ Run this checklist before starting any sprint. Record the result in the sprint p
 - [ ] Hosting runtime capabilities are confirmed, or an ADR records the assumption and a fallback.
 - [ ] Local development/demo environment is defined (how to run the full flow locally).
 - [ ] Test tools, lint tools, and CI checks are named; once CI exists, its checks are required on `main`.
-- [ ] **(blocking for a go-live sprint)** The branching and release model is recorded (ADR) and the release runbook exists: preview/staging site, how a change reaches production, smoke test, rollback.
+- [ ] **(blocking for a sprint that deploys anything, a preview included)** The branching and release model is recorded (ADR) and the deployment runbook exists (`AGENTS.md` → Document map, Runbooks).
+- [ ] **(blocking for a go-live sprint)** The release runbook exists: preview check, how a change reaches production, smoke test, rollback.
 - [ ] Previews and tests use their own data store (staging sheet, database or endpoint), never production data.
 - [ ] If the project sends transactional email, a real-delivery test to an external Gmail and Outlook inbox is planned before release.
 

@@ -46,7 +46,7 @@ If code conflicts with an approved spec, the spec wins unless the spec is explic
 | Sprint plans | `docs/sprints/SPRINT_<NNN>.md` (the active one is named in `PROJECT_CONTEXT.md`) | Always |
 | Agent prompts | `docs/sprints/SPRINT_<NNN>_AGENT_PROMPTS.md` (from `SPRINT_AGENT_PROMPTS_TEMPLATE.md`) | Sprints that use agents |
 | Readiness checklist | `docs/checklists/SPRINT_READINESS_CHECKLIST.md` | Before every sprint |
-| Runbooks | `docs/runbooks/`: `RELEASE.md` and `DEPLOYMENT.md` (from templates), `LOCAL_DEVELOPMENT.md` and others as needed (no template); all written per `docs/process/RUNBOOK_STYLE.md` | From the first sprint that runs or deploys something |
+| Runbooks | `docs/runbooks/`: `RELEASE.md` and `DEPLOYMENT.md` (from templates), `LOCAL_DEVELOPMENT.md` and others as needed (no template); all written per `docs/process/RUNBOOK_STYLE.md` | `LOCAL_DEVELOPMENT.md` from the first sprint that runs something; the branching and release ADR and `DEPLOYMENT.md` in the first sprint that deploys anything (a preview included), before that deploy; `RELEASE.md` before the first production release |
 
 Templates in the Starter Kit end in `_TEMPLATE.md`. When a project instantiates one, it copies the file to the path above without the `_TEMPLATE` suffix. Exceptions: ADR templates become `docs/decisions/ADR-<NNN>_<TITLE>.md` with the next free number (e.g. `ADR_BRANCHING_AND_RELEASE_TEMPLATE.md` → `ADR-004_BRANCHING_AND_RELEASE_MODEL.md`), and `SPRINT_AGENT_PROMPTS_TEMPLATE.md` becomes one file per sprint.
 

@@ -1,6 +1,6 @@
 # ADR-<NNN> — Branching and release model
 
-Default model from the Starter Kit pilots. Copy it to `docs/decisions/ADR-<NNN>_BRANCHING_AND_RELEASE_MODEL.md` (next free ADR number, `AGENTS.md` → Document map) before the first release, adapt what differs, and mark it Accepted. `docs/runbooks/RELEASE.md` (from `RELEASE_TEMPLATE.md`) implements it.
+Default model from the Starter Kit pilots. Copy it to `docs/decisions/ADR-<NNN>_BRANCHING_AND_RELEASE_MODEL.md` (next free ADR number, `AGENTS.md` → Document map) in the first sprint that deploys anything (a preview included), before that deploy (`AGENTS.md` → Document map, Runbooks), adapt what differs, and mark it Accepted. `docs/runbooks/RELEASE.md` (from `RELEASE_TEMPLATE.md`) implements it.
 
 - Status: Proposed
 - Date:
