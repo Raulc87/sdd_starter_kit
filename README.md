@@ -61,6 +61,23 @@ The first pilot (`Raulc87/gaby-main-page`) showed that these are usually missing
 - where the sprint deliverable runs (local vs. hosted) and confirmation of the hosting runtime
 - a visual-identity step: build the first prototype on provisional theme tokens, then explore 2 proposals from the client's brand material, record the chosen one in the UX spec, and apply it as its own story
 
+## Lessons from the second pilot
+
+The second pilot (`Raulc87/DigitalStrike-main-page`) went live with a release process. Plan these from the start:
+
+- a branching and release model recorded in an ADR: `main` as the only long-lived branch, always releasable; production changes only on a published release tag; `release/vX.Y.x` branches only for urgent fixes (`AGENTS.md` naming); see `docs/runbooks/RELEASE_TEMPLATE.md`
+- a preview/staging site on every merge, with `noindex`, provisional-content badges on and its **own data store**: previews and tests must never write to production data
+- build flags per environment (`PUBLIC_*` variables) for work that is merged but not ready to show
+- a holding page on the production domain until the first release
+- required CI checks on `main` once CI exists
+- all visitor-facing copy in one keyed file per language, `docs/ux/CONTENT.md` (`docs/ux/CONTENT_TEMPLATE.md`), separate from the UX direction
+- a coordinator session that launches the agent sessions after the owner's go-ahead and coordinates the sprint (relays decisions, routes PR events, checks in, recovers stories paused by usage limits); agent prompts from `docs/sprints/SPRINT_AGENT_PROMPTS_TEMPLATE.md`, with a reviewer that states its file coverage and re-reviews every push
+- a deployment runbook with a dry run before the first release, secrets kept separate from non-sensitive variables, and the server's full host name rather than a suggested alias (`docs/runbooks/DEPLOYMENT_TEMPLATE.md`)
+- owner runbooks that are copy-paste safe on macOS and Windows (`docs/process/RUNBOOK_STYLE.md`)
+- transactional email tested for real delivery to Gmail and Outlook before release, checked in the provider's log; copy never claims an email was sent when sending can fail
+- hosts that inject their own scripts or cookies: check a fresh-profile page load before writing the privacy notice
+- docs-first changes that a doc↔code sync test would turn red: the implementation PR merges into the docs branch first, so `main` is never red (`AGENTS.md` → Change management)
+
 ## Bundled skills
 
 These load automatically in Claude Code for any account working in a repository created from this template.
