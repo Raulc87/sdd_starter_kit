@@ -53,10 +53,10 @@ Expected: a preview build and a production build of the same commit use differen
 
 ### 1.3 Protection
 - `main`: pull request required, required checks (the CI jobs), branches up to date before merging, no force pushes or deletions, administrators included.
-- `release/*` (if the project uses release branches): the same rule as `main`.
+- `release/*` (if the project uses release branches): added as a target of the same `main` ruleset, so it gets the same rules and checks.
 - CI runs on **pull requests targeting `main` and `release/**`**, and on pushes to both.
 
-Expected: Settings → Rules shows each rule with Enforcement status **Active**.
+Expected: Settings → Rules → Rulesets shows the `main` ruleset (created by the "New project" workflow, or by hand) with Enforcement status **Active**, targeting the default branch and, if used, `release/*`.
 
 ### 1.4 Before the first release: holding page
 Until the first release, the production domain shows a simple holding page (name, one line, contact) instead of an empty server or a hosting placeholder. The first release replaces it; the deployment runbook lists exactly which files it removes.
