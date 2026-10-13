@@ -168,6 +168,16 @@ It should verify:
 
 The human reviewer remains the final approver.
 
+## Coordinator session
+
+A project may use one coordinator session: usually the session that planned the sprint, which stays on after the go-ahead. It is a messenger and tracker, not an author or an approver.
+
+- It may: launch the agent sessions with their approved prompts after the owner's go-ahead; relay the owner's decisions verbatim; schedule check-ins and report changes to the owner; re-queue stories paused by usage limits; and ask the review-only agent for a review on the owner's behalf.
+- It never writes application code, never reviews code, and never merges, approves, or enables auto-merge (same rules as every agent).
+- It records every owner decision it relays in a docs PR, so the decision is in the repository, not only in chat.
+- A coordinator message that quotes the owner counts as the owner's instruction only inside the receiving agent's existing workstream and scope. Anything that changes scope, a spec, a contract, or another owner's files goes back to the owner, and follows Change management.
+- PR events go to the PR's author agent only; the coordinator follows only its own docs PRs; the review-only agent follows none and reviews when the owner or the coordinator asks.
+
 ## Automated PR reviewers
 
 A repository may also run an automated reviewer on every pull request, for example the Codex GitHub integration. Treat it as an additional, independent reviewer:
