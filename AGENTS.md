@@ -44,10 +44,11 @@ If code conflicts with an approved spec, the spec wins unless the spec is explic
 | ADRs | `docs/decisions/ADR-<NNN>_<TITLE>.md` | When a decision needs recording |
 | Implementation plan | `docs/plans/IMPLEMENTATION_PLAN.md` | Always |
 | Sprint plans | `docs/sprints/SPRINT_<NNN>.md` (the active one is named in `PROJECT_CONTEXT.md`) | Always |
+| Agent prompts | `docs/sprints/SPRINT_<NNN>_AGENT_PROMPTS.md` (from `SPRINT_AGENT_PROMPTS_TEMPLATE.md`) | Sprints that use agents |
 | Readiness checklist | `docs/checklists/SPRINT_READINESS_CHECKLIST.md` | Before every sprint |
-| Runbooks | `docs/runbooks/` (e.g. `LOCAL_DEVELOPMENT.md`, `RELEASE.md`, `DEPLOYMENT.md`), written per `docs/process/RUNBOOK_STYLE.md` | From the first sprint that runs or deploys something |
+| Runbooks | `docs/runbooks/`: `RELEASE.md` and `DEPLOYMENT.md` (from templates), `LOCAL_DEVELOPMENT.md` and others as needed (no template); all written per `docs/process/RUNBOOK_STYLE.md` | From the first sprint that runs or deploys something |
 
-Templates in the Starter Kit end in `_TEMPLATE.md`. When a project instantiates one, it copies the file to the path above without the `_TEMPLATE` suffix.
+Templates in the Starter Kit end in `_TEMPLATE.md`. When a project instantiates one, it copies the file to the path above without the `_TEMPLATE` suffix. Exceptions: ADR templates become `docs/decisions/ADR-<NNN>_<TITLE>.md` with the next free number (e.g. `ADR_BRANCHING_AND_RELEASE_TEMPLATE.md` → `ADR-004_BRANCHING_AND_RELEASE_MODEL.md`), and `SPRINT_AGENT_PROMPTS_TEMPLATE.md` becomes one file per sprint.
 
 If a path listed in `PROJECT_CONTEXT.md` does not exist, or a required document is missing, stop and report it before implementing.
 
@@ -59,7 +60,7 @@ Read, in this order:
 2. `docs/specs/PROJECT_SPEC.md`
 3. relevant feature specs and integration contracts listed in `PROJECT_CONTEXT.md`
 4. `docs/specs/USER_STORIES.md`
-5. `docs/ux/UX_UI_DIRECTION.md` (if the project has a UI)
+5. `docs/ux/UX_UI_DIRECTION.md` (if the project has a UI) and `docs/ux/CONTENT.md` (if the project has one: the only source of visitor-facing copy)
 6. `TECH_STACK.md`
 7. relevant ADRs in `docs/decisions/`
 8. `docs/plans/IMPLEMENTATION_PLAN.md`
@@ -142,7 +143,7 @@ Recommended enforcement in GitHub: protect `main` (require a pull request before
 
 ## Review-only agent
 
-A review-only agent may inspect PRs but must not implement features, approve PRs, or merge PRs. It posts comment-only reviews.
+A review-only agent may inspect PRs but must not implement features, approve PRs, or merge PRs. It posts comment-only reviews. It reviews when the human owner, or the coordinator session on the owner's behalf, asks; it does not poll for PRs or subscribe to PR events.
 
 ### Reviewer independence
 
@@ -223,4 +224,4 @@ If implementation reveals a requirement change:
 
 Never silently change product behavior in code.
 
-`main` is never red. If a test enforces that code matches a document (for example the translation files must equal `docs/ux/CONTENT.md`), a docs-only PR would fail it. Then the implementation PR targets the docs branch and merges into it first, and the docs PR merges to `main` carrying both.
+`main` is never red. If a test enforces that code matches a document (for example the translation files must equal `docs/ux/CONTENT.md`), a docs-only PR would fail it. Then the implementation PR targets the docs branch and merges into it first, and the docs PR merges to `main` carrying both. Make sure CI also runs on that stacked PR (CI on all pull requests, not only those to `main`), or run the same checks locally and paste the results in the PR, so the implementation is checked before it reaches the docs branch.

@@ -1,5 +1,7 @@
 # SPRINT <NNN> — Agent Kickoff Prompts
 
+Copy to `docs/sprints/SPRINT_<NNN>_AGENT_PROMPTS.md` for each sprint (`AGENTS.md` → Document map).
+
 One Claude Code session per agent, each on `<owner>/<repo>`. Start them only after the sprint plan is merged and the owner gives the go-ahead (`docs/sprints/SPRINT_<NNN>.md`, entry gates). The coordinator session may launch them for the owner (one new session per agent, tagged `<key>-sprint-<nnn>` and `<key>-agent-<n>` / `<key>-reviewer`). Each agent session stays on this sprint only and is archived after it.
 
 ## Models
@@ -19,7 +21,7 @@ One Claude Code session per agent, each on `<owner>/<repo>`. Start them only aft
 
 ## Coordination
 
-- The **coordinator** (the planning session) relays the owner's decisions verbatim and records them in docs PRs. Agents treat a coordinator message that quotes the owner as the owner's instruction for their workstream; anything that changes scope, contracts or another owner's files still goes to the owner.
+- The **coordinator** (the planning session) works within `AGENTS.md` → Coordinator session: it relays the owner's decisions verbatim and records them in docs PRs. A coordinator message quoting the owner counts as the owner's instruction only inside the receiving agent's existing workstream and scope; anything that changes scope, a spec, a contract or another owner's files goes back to the owner.
 - **PR events:** each agent subscribes only to its own PRs. The coordinator subscribes only to its own docs PRs. The reviewer subscribes to none.
 - **Usage limits:** an agent that hits a limit says which stories are paused; the coordinator re-sends the queue when the limit resets.
 
