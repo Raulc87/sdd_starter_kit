@@ -99,7 +99,7 @@ The same loop as the first pilot:
 | The job shows as skipped | The run was started from a branch other than `main`, or this repository is not marked as a template (step 0.1) |
 | `401 Bad credentials` | The token expired or was regenerated; update the environment secret |
 | Workflow fails with `name already exists` | A repository with that name exists; choose another `repo_name` |
-| "Protect main" step shows a warning | Private repository on a free plan (no rulesets); protect `main` manually later (step 1, Manual, item 2), make the repository public, or upgrade the plan |
+| "Protect main" step shows a warning | The line before it ("Ruleset request failed: … (HTTP …)") says why. **403** with an upgrade message: private repository on a free plan (no rulesets); protect `main` manually later (step 1, Manual, item 2), make the repository public, or upgrade the plan. **403** otherwise: the token lacks Administration write. **422**: GitHub rejected the ruleset; protect `main` manually and report it. No such line: the ruleset was created but did not read back as active; check it under Settings → Rules → Rulesets |
 | No rule under Settings → Branches | Expected: the workflow creates a ruleset; look under Settings → Rules → Rulesets |
 | The "New project" workflow appears in a project repository | Expected: the file is copied with the template, but its job is skipped because the project is not a template |
 | Claude cannot see the new repository | Add it to the Claude GitHub app's repository access (step 2) |
