@@ -49,6 +49,7 @@ Run this checklist before starting any sprint. Record the result in the sprint p
 - [ ] **(blocking)** Every agent prompt states that agents never merge or approve PRs; only the human owner merges after approval (`AGENTS.md`).
 - [ ] **(blocking)** If a review-only agent is used, it runs in its own session, and its prompt states the reviewer-independence rule: it never changes code, commits, or posts patches (`AGENTS.md`).
 - [ ] `main` is protected in GitHub (pull request required, no force pushes or deletions).
+- [ ] If a coordinator session is used, its instructions follow `AGENTS.md` → Coordinator session (relays verbatim, records decisions in docs PRs, never writes code, merges or approves).
 
 ## 8. Go-ahead
 - [ ] **(blocking)** The human owner has given explicit go-ahead.
