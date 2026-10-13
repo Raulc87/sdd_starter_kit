@@ -1,6 +1,7 @@
-# Creates a new project repository from this Starter Kit, protects `main`,
-# and opens a discovery kickoff issue. Runs only in the template repository
-# itself (repositories created from it keep the file but skip the job).
+# Creates a new project repository from this Starter Kit, protects `main`
+# with a repository ruleset, and opens a discovery kickoff issue. Runs only in
+# the template repository itself (repositories created from it keep the file
+# but skip the job).
 # Setup and usage: docs/process/NEW_PROJECT_SETUP.md
 #
 # The token is an environment secret of `project-bootstrap`, never a repository
@@ -108,23 +109,40 @@ jobs:
           exit 1
 
       - name: Protect main
+        # A repository ruleset (Settings > Rules > Rulesets), not a classic
+        # branch protection rule: the CI checks and release/* branches are added
+        # to the same ruleset later (docs/process/NEW_PROJECT_SETUP.md, step 4).
+        # Empty bypass list = nobody can skip it, administrators included.
         run: |
           set -uo pipefail
-          if jq -n '{
-                required_status_checks: null,
-                enforce_admins: true,
-                required_pull_request_reviews: {required_approving_review_count: 0},
-                restrictions: null,
-                allow_force_pushes: false,
-                allow_deletions: false
-              }' | gh api -X PUT "repos/${OWNER}/${REPO_NAME}/branches/main/protection" --input - > /dev/null \
-             && gh api "repos/${OWNER}/${REPO_NAME}/branches/main/protection" \
-                  --jq '(.required_pull_request_reviews != null) and .enforce_admins.enabled and (.allow_force_pushes.enabled | not) and (.allow_deletions.enabled | not)' \
-                | grep -qx true; then
-            echo "main is protected for everyone, administrators included (verified): pull request required, no force pushes or deletions."
+          RULESET_ID=$(jq -n '{
+                name: "main",
+                target: "branch",
+                enforcement: "active",
+                bypass_actors: [],
+                conditions: {ref_name: {include: ["~DEFAULT_BRANCH"], exclude: []}},
+                rules: [
+                  {type: "pull_request", parameters: {
+                    required_approving_review_count: 0,
+                    dismiss_stale_reviews_on_push: false,
+                    require_code_owner_review: false,
+                    require_last_push_approval: false,
+                    required_review_thread_resolution: false}},
+                  {type: "non_fast_forward"},
+                  {type: "deletion"}
+                ]
+              }' | gh api -X POST "repos/${OWNER}/${REPO_NAME}/rulesets" --input - --jq '.id' 2>/dev/null || true)
+          # Read back: the ruleset is active with no bypass, and GitHub reports
+          # all three rules as applying to main.
+          if [ -n "${RULESET_ID}" ] \
+             && gh api "repos/${OWNER}/${REPO_NAME}/rulesets/${RULESET_ID}" \
+                  --jq '(.enforcement == "active") and ((.bypass_actors // []) | length == 0)' | grep -qx true \
+             && gh api "repos/${OWNER}/${REPO_NAME}/rules/branches/main" \
+                  --jq '[.[].type] | (index("pull_request") != null) and (index("non_fast_forward") != null) and (index("deletion") != null)' | grep -qx true; then
+            echo "main is protected for everyone, administrators included (verified): ruleset \"main\" is active, pull request required, no force pushes or deletions."
             echo "PROTECTED=yes" >> "$GITHUB_ENV"
           else
-            echo "::warning::Could not protect main, or the rule did not read back as active (private repositories on a free plan do not support it). Protect it manually: Settings > Rules or Branches, and check it is active."
+            echo "::warning::Could not protect main, or the ruleset did not read back as active (private repositories on a free plan do not support rulesets). Protect it manually: Settings > Rules > Rulesets, and check its Enforcement status is Active."
             echo "PROTECTED=no" >> "$GITHUB_ENV"
           fi
 
