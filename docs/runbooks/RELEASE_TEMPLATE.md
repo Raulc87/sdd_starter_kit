@@ -16,7 +16,7 @@ Names in this template use `PUBLIC_` as the prefix for build-time values that ar
 
 - **`main` is the only long-lived branch and is always releasable.** PRs are small and complete; unfinished work stays behind a build flag until it is ready.
 - **Production changes only on a release.** A release is a semantic-version tag on a commit of `main` that was checked on the preview; the release workflow builds and deploys that tag.
-- **Previews never touch production data.** The preview build points at its own staging endpoint, sheet or database. Tests and test submissions never land in the production store.
+- **Previews never touch production data.** The preview build points at its own staging endpoint, sheet or database. Tests and test submissions never land in the production store, except the one marked submission of the production smoke test (section 4), which is deleted or marked right after.
 - **Every release gets a smoke test**, recorded in the release description.
 
 ## 1. One-time setup

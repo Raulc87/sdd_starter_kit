@@ -66,7 +66,7 @@ The first pilot (`Raulc87/gaby-main-page`) showed that these are usually missing
 The second pilot (`Raulc87/DigitalStrike-main-page`) went live with a release process. Plan these from the start:
 
 - a branching and release model recorded in an ADR: `main` as the only long-lived branch, always releasable; production changes only on a published release tag; `release/vX.Y.x` branches only for urgent fixes (`AGENTS.md` naming); see `docs/runbooks/RELEASE_TEMPLATE.md`
-- a preview/staging site on every merge, with `noindex`, provisional-content badges on and its **own data store**: previews and tests must never write to production data
+- a preview/staging site on every merge, with `noindex`, provisional-content badges on and its **own data store**: previews and automated tests must never write to production data (the production smoke test's one marked submission is the only exception)
 - build flags per environment (`PUBLIC_*` variables) for work that is merged but not ready to show
 - a holding page on the production domain until the first release
 - required CI checks on `main` once CI exists
