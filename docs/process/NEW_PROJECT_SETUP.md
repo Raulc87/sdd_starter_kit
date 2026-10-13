@@ -81,11 +81,11 @@ The same loop as the first pilot:
 1. Discovery Q&A (step 3).
 2. Spec PRs on `<KEY>-DOCS-…` branches; you review and merge.
 3. Readiness check (`docs/checklists/SPRINT_READINESS_CHECKLIST.md`); you give the go-ahead.
-4. Up to 3 implementation agents, each in its own session, with the prompts the planning session gives you; a review-only agent in another session.
-5. You merge after approval. Agents never merge.
+4. Up to 3 implementation agents, each in its own session, with the prompts the planning session gives you; a review-only agent in another session. If the planning session can create sessions, it offers to launch them for you after your go-ahead; otherwise paste each prompt into a new session.
+5. You merge after approval. Agents never merge. **As soon as the first CI workflow is merged, make its checks required on `main`** (Settings → Rules → the `main` rule → Require status checks to pass → add each check, e.g. lint, typecheck, unit tests, build, e2e). The bootstrap workflow cannot do this, because no checks exist yet when the repository is created.
 6. Local run of the prototype (the project's local-development runbook).
 7. Visual identity with the `ux-proposals` skill (`docs/process/VISUAL_IDENTITY_PROCESS.md`).
-8. Deployment and go-live through the project's own runbook and go-live gate.
+8. Deployment and go-live through the project's own runbook and go-live gate. Keep previews and tests away from production data: a preview or staging site posts to its own sheet, database or endpoint, never the production one.
 
 ## Troubleshooting
 
