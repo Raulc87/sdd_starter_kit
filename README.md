@@ -67,6 +67,18 @@ The first pilot (`Raulc87/gaby-main-page`) showed that these are usually missing
 - where the sprint deliverable runs (local vs. hosted) and confirmation of the hosting runtime
 - a visual-identity step: build the first prototype on provisional theme tokens, then explore 2 proposals from the client's brand material, record the chosen one in the UX spec, and apply it as its own story
 
+## Lessons from the second pilot
+
+The second pilot (`Raulc87/DigitalStrike-main-page`) went live with a release process. Plan these from the start:
+
+- a branching and release model recorded in an ADR: `main` as the only long-lived branch, always releasable; production changes only on a published release tag; `release/vX.Y.x` branches only for urgent fixes (`AGENTS.md` naming); see `docs/runbooks/RELEASE_TEMPLATE.md`
+- a preview/staging site on every merge, with `noindex`, provisional-content badges on and its **own data store**: previews and tests must never write to production data
+- build flags per environment (`PUBLIC_*` variables) for work that is merged but not ready to show
+- a holding page on the production domain until the first release
+- required CI checks on `main` once CI exists
+- all visitor-facing copy in one keyed file per language, `docs/ux/CONTENT.md` (`docs/ux/CONTENT_TEMPLATE.md`), separate from the UX direction
+- a coordinator session that can launch the agent sessions itself after the owner's go-ahead
+
 ## Bundled skill
 
 `.claude/skills/ux-proposals/` loads automatically in Claude Code for any account working in a repository created from this template. It creates look-and-feel proposals from the project's UX spec and the client's brand material, then drafts the spec section for the chosen direction. See `docs/process/VISUAL_IDENTITY_PROCESS.md`.

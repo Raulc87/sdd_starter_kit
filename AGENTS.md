@@ -39,11 +39,13 @@ If code conflicts with an approved spec, the spec wins unless the spec is explic
 | Architecture spec | `docs/specs/ARCHITECTURE_SPEC.md` | Standard/complex projects, or when listed |
 | Integration contracts | `docs/specs/<NAME>_CONTRACT.md` | Whenever two workstreams share an interface |
 | UX/UI direction | `docs/ux/UX_UI_DIRECTION.md` | Projects with a user interface |
+| Content (copy) | `docs/ux/CONTENT.md` | Projects with visitor-facing copy, or more than one language |
 | Tech stack | `TECH_STACK.md` | Always |
 | ADRs | `docs/decisions/ADR-<NNN>_<TITLE>.md` | When a decision needs recording |
 | Implementation plan | `docs/plans/IMPLEMENTATION_PLAN.md` | Always |
 | Sprint plans | `docs/sprints/SPRINT_<NNN>.md` (the active one is named in `PROJECT_CONTEXT.md`) | Always |
 | Readiness checklist | `docs/checklists/SPRINT_READINESS_CHECKLIST.md` | Before every sprint |
+| Runbooks | `docs/runbooks/` (e.g. `LOCAL_DEVELOPMENT.md`, `RELEASE.md`, `DEPLOYMENT.md`) | From the first sprint that runs or deploys something |
 
 Templates in the Starter Kit end in `_TEMPLATE.md`. When a project instantiates one, it copies the file to the path above without the `_TEMPLATE` suffix.
 
@@ -96,12 +98,13 @@ Every project defines a short uppercase **project key** (its initials, 2–5 let
 | User story | `<KEY>-<NNN>-<short-slug>` | `GK-004-lead-form` |
 | Fix or follow-up for a story | `<KEY>-<NNN>-fix-<short-slug>` | `GK-004-fix-phone-validation` |
 | Work outside the stories | `<KEY>-<TYPE>-<short-slug>` | `GK-DOCS-sprint-001-readiness` |
+| Release branch for an urgent fix (only if the project's branching ADR allows it) | `release/v<MAJOR>.<MINOR>.x` | `release/v0.1.x` |
 
 - `<NNN>` is the story number with three digits (`US-004` → `004`). When Jira is adopted, use the Jira issue number instead.
 - `<TYPE>` for non-story work: `DOCS`, `CHORE`, `CI`, `FIX`, `SPIKE`.
 - `<short-slug>`: lowercase, kebab-case, a few words, total branch name at most 60 characters.
 - One branch per story and agent. If a branch serves several stories, name it after the primary story and list the others in the PR.
-- Never commit directly to `main`.
+- Never commit directly to `main`. `main` is the only long-lived branch unless the project's branching ADR says otherwise; release branches are protected like `main` and receive changes only through reviewed PRs.
 
 ### Pull request titles
 
