@@ -33,7 +33,7 @@ Option A:
 3. Production = release tags (`vMAJOR.MINOR.PATCH`, semantic versioning) on the `main` commit that was checked on the preview. The release workflow deploys the tag; the smoke test is recorded in the release. Release often.
 4. Urgent fix while `main` has unreleased work: create `release/vMAJOR.MINOR.x` from the last tag; fix on `<KEY>-FIX-<slug>` with a PR against it; publish the patch release with that branch as target; bring the fix to `main` in a normal PR.
    **Gate for a release-branch patch:** the fix PR's required checks are green on its head and the PR is up to date with the release branch (so the merged commit is the one CI tested); there is no preview step; the production smoke test right after the deploy is the check, with rollback to the previous tag if it fails. `release/*` has the same protection rule as `main`, including "require branches to be up to date"; CI runs on pull requests targeting `release/**` and on pushes to it, so the fix PR has checks to be green.
-5. Backends and data follow the same rule: previews and automated tests use a staging endpoint and data store (the production smoke test's one marked submission is the only exception); backend changes reach production only as part of a release, with the smoke test after it.
+5. Backends and data follow the same rule: previews and automated tests use a staging endpoint and data store (the marked submissions of each production smoke test, deleted or marked right after, are the only exception); backend changes reach production only as part of a release, with the smoke test after it.
 
 ## Consequences
 ### Positive

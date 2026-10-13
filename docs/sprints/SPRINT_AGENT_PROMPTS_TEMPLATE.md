@@ -40,8 +40,8 @@ Rules:
 - AGENTS.md is authoritative. Do not invent requirements, copy, numbers or names. If an ambiguity
   materially changes behavior, scope, security, data handling or architecture, stop and ask.
 - Contracts listed in PROJECT_CONTEXT.md are locked. Propose changes; do not make them.
-- Visitor-facing text comes verbatim from docs/ux/CONTENT.md (or the UX direction). If something
-  is missing or wrong, say so; the doc changes first.
+- Visitor-facing text comes verbatim from the copy source PROJECT_CONTEXT.md names (docs/ux/CONTENT.md
+  by default). If something is missing or wrong, say so; the doc changes first.
 - Edit only files your workstream owns (File Ownership Map in SPRINT_<NNN>.md). You own the tests
   of the code you own, unit and end-to-end. Ask for changes in anyone else's files.
 - Branch per story with the names in SPRINT_<NNN>.md. One PR per branch, base main (or the
