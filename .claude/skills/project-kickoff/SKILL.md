@@ -46,7 +46,10 @@ Documents follow the document map in `AGENTS.md` and this documentation depth (d
 | Simple | Project spec, user stories, integration contracts when workstreams share an interface, UX/UI direction if there is a UI, tech stack, implementation plan, sprint plan |
 | Standard | Simple, plus feature specs, an architecture spec, and ADRs when needed |
 | Complex | Standard, plus detailed architecture, multiple feature specs, explicit contracts, a migration/rollback strategy, and stronger automated verification and traceability |
- The SDD order is mandatory (`AGENTS.md` → Mandatory workflow): later documents derive from the approved spec, so they are written only after it is merged.
+
+This table is a copy of the kit README's "Documentation depth"; keep the two in sync when either changes.
+
+The SDD order is mandatory (`AGENTS.md` → Mandatory workflow): later documents derive from the approved spec, so they are written only after it is merged.
 
 **Stage A: discovery PR (`<KEY>-DOCS-discovery`)**
 

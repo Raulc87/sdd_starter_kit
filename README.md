@@ -76,6 +76,8 @@ For Claude Code, `CLAUDE.md` redirects Claude to the same process.
 
 ## Documentation depth
 
+A copy of this section lives in `.claude/skills/project-kickoff/SKILL.md` (projects replace this README in Stage A); keep the two in sync.
+
 Use the minimum documentation required by complexity.
 
 ### Simple project

@@ -17,7 +17,7 @@ How to start a new project from this Starter Kit, from an empty GitHub account t
    - **Allow administrators to bypass configured protection rules:** untick it. By default, any administrator of this repository could skip your approval and release the token; with it unticked, no administrator can skip it, you included. Administrators can still edit the environment itself (remove the reviewer or the branch rule), so this gate holds only while **you are the only administrator of this repository**. Keep it that way; if the kit lives in an organization with other admins, do not store the token there (use the manual path).
    - **Deployment branches and tags:** choose **Selected branches and tags** and add the rule `main`. A workflow edited on any other branch can never read the token.
    - **Environment secrets → Add environment secret:** name `PROJECT_BOOTSTRAP_TOKEN`, value = the token.
-   - If you already created a repository secret with that name (Settings → Secrets and variables → Actions → Repository secrets), delete it.
+   - If you already created a repository secret with that name (Settings → Secrets and variables → Actions → Repository secrets), delete it. A repository secret **would still be used** by the workflow, so nothing fails, but it is readable by a workflow edited on any branch, which is exactly what this environment prevents.
    - Plan support for this step (GitHub's environment rules):
 
      | This kit is… | Automated path |
@@ -95,7 +95,7 @@ The same loop as the first pilot:
 |---|---|
 | "New project" workflow fails with `404` or `Resource not accessible` on the generate step | The kit is not marked as a template (step 0.1), or `PROJECT_BOOTSTRAP_TOKEN` lacks Administration write for the target owner |
 | The run waits with "Waiting for review" | Expected: approve it under **Review deployments** (step 0.3) |
-| "Secret PROJECT_BOOTSTRAP_TOKEN is not set" | The secret is missing from the `project-bootstrap` environment, or it was stored as a repository secret instead |
+| "Secret PROJECT_BOOTSTRAP_TOKEN is not set" | The secret is missing from the `project-bootstrap` environment (Settings → Environments → `project-bootstrap` → Environment secrets) |
 | The job shows as skipped | The run was started from a branch other than `main`, or this repository is not marked as a template (step 0.1) |
 | `401 Bad credentials` | The token expired or was regenerated; update the environment secret |
 | Workflow fails with `name already exists` | A repository with that name exists; choose another `repo_name` |
