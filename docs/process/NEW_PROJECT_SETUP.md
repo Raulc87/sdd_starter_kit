@@ -11,9 +11,10 @@ How to start a new project from this Starter Kit, from an empty GitHub account t
      - *Classic:* scope `repo`.
    - Give it an expiry date and renew it when it expires. Never paste it into an issue, a prompt, or a file.
 3. **Store the token in a protected environment, not as a repository secret.** The token can create and administer repositories across the whole account, so only runs you approve, from `main`, may read it:
+   - **First, protect this repository's `main`:** Settings → Rules → New branch ruleset → target the default branch; require a pull request, block force pushes and deletions, leave the bypass list empty, and set **Enforcement status: Active** (new rulesets can be saved disabled). The environment's branch rule below only matches the name `main`; protection is what stops anyone from pushing an altered workflow to `main` that your next approval would then run.
    - This repository → **Settings → Environments → New environment**, name `project-bootstrap`.
    - **Required reviewers:** add yourself. Every run then waits for your approval before it can read the token.
-   - **Allow administrators to bypass configured protection rules:** untick it. By default, any administrator of this repository could skip your approval and release the token; with it unticked, nobody can, you included.
+   - **Allow administrators to bypass configured protection rules:** untick it. By default, any administrator of this repository could skip your approval and release the token; with it unticked, no administrator can skip it, you included. Administrators can still edit the environment itself (remove the reviewer or the branch rule), so this gate holds only while **you are the only administrator of this repository**. Keep it that way; if the kit lives in an organization with other admins, do not store the token there (use the manual path).
    - **Deployment branches and tags:** choose **Selected branches and tags** and add the rule `main`. A workflow edited on any other branch can never read the token.
    - **Environment secrets → Add environment secret:** name `PROJECT_BOOTSTRAP_TOKEN`, value = the token.
    - If you already created a repository secret with that name (Settings → Secrets and variables → Actions → Repository secrets), delete it.
@@ -52,7 +53,7 @@ The run summary links to the new repository and the issue.
 ### Manual
 
 1. This repository → **Use this template → Create a new repository**. Leave "Include all branches" unticked.
-2. In the new repository: **Settings → Rules** (or **Branches**) → protect `main`: require a pull request, block force pushes and deletions, and apply the rule to administrators too.
+2. In the new repository: **Settings → Rules** (or **Branches**) → protect `main`: require a pull request, block force pushes and deletions, and apply the rule to administrators too. With a ruleset, check that its **Enforcement status is Active**: new rulesets can be saved disabled. Private repositories on GitHub Free cannot be protected: make the project public, upgrade the plan, or record in `PROJECT_CONTEXT.md` (open questions) that `main` is unprotected until then.
 3. Write down the project key (2–5 uppercase letters).
 
 ## 2. Connect the tools to the new repository
@@ -82,7 +83,7 @@ The same loop as the first pilot:
 2. Spec PRs on `<KEY>-DOCS-…` branches; you review and merge.
 3. Readiness check (`docs/checklists/SPRINT_READINESS_CHECKLIST.md`); you give the go-ahead.
 4. Up to 3 implementation agents, each in its own session, with the prompts the planning session gives you; a review-only agent in another session. If the planning session can create sessions, it offers to launch them for you after your go-ahead; otherwise paste each prompt into a new session. The planning session then **coordinates**: it relays your decisions to the agents (and records them in docs PRs), checks in every few hours, notices agents paused by usage limits, and asks the reviewer for reviews. Each PR's GitHub events go to its author agent only.
-5. You merge after approval. Agents never merge. **As soon as the first CI workflow is merged, make its checks required on `main`** (Settings → Rules → the `main` rule → Require status checks to pass → add each check, e.g. lint, typecheck, unit tests, build, e2e). Also turn on **Require branches to be up to date before merging**, and if the project uses `release/*` branches (its branching ADR), give them the same rule. If you use a **ruleset**, check that its **Enforcement status is Active**: new rulesets can be saved disabled. The bootstrap workflow cannot add checks, because none exist yet when the repository is created.
+5. You merge after approval. Agents never merge. **As soon as the first CI workflow is merged, make its checks required on `main`** (Settings → Rules → the `main` rule → Require status checks to pass → add each check, e.g. lint, typecheck, unit tests, build, e2e). Also turn on **Require branches to be up to date before merging**, and if the project decides to use `release/*` branches for urgent fixes, give them the same rule. If you use a **ruleset**, check that its **Enforcement status is Active**: new rulesets can be saved disabled. The bootstrap workflow cannot add checks, because none exist yet when the repository is created.
 6. Local run of the prototype (the project's local-development runbook).
 7. Visual identity with the `ux-proposals` skill (`docs/process/VISUAL_IDENTITY_PROCESS.md`).
 8. Deployment and go-live through the project's own runbook and go-live gate. Keep previews and tests away from production data: a preview or staging site posts to its own sheet, database or endpoint, never the production one.
@@ -94,9 +95,11 @@ The same loop as the first pilot:
 |---|---|
 | "New project" workflow fails with `404` or `Resource not accessible` on the generate step | The kit is not marked as a template (step 0.1), or `PROJECT_BOOTSTRAP_TOKEN` lacks Administration write for the target owner |
 | The run waits with "Waiting for review" | Expected: approve it under **Review deployments** (step 0.3) |
-| "Secret PROJECT_BOOTSTRAP_TOKEN is not set" | The secret is missing from the `project-bootstrap` environment, the run was started from a branch other than `main`, or the token expired |
+| "Secret PROJECT_BOOTSTRAP_TOKEN is not set" | The secret is missing from the `project-bootstrap` environment, or it was stored as a repository secret instead |
+| The job shows as skipped | The run was started from a branch other than `main`, or this repository is not marked as a template (step 0.1) |
+| `401 Bad credentials` | The token expired or was regenerated; update the environment secret |
 | Workflow fails with `name already exists` | A repository with that name exists; choose another `repo_name` |
 | Branch protection step shows a warning | Private repository on a free plan; protect `main` manually later or upgrade the plan |
-| The workflow is missing in a project repository | Expected: it only runs in the template itself, not in repositories created from it |
+| The "New project" workflow appears in a project repository | Expected: the file is copied with the template, but its job is skipped because the project is not a template |
 | Claude cannot see the new repository | Add it to the Claude GitHub app's repository access (step 2) |
 | `/project-kickoff` is not recognized | The session is not on a repository created from this kit, or the repository was created before the skill existed; say "Run the project-kickoff skill" or paste the skill's prompt from `.claude/skills/project-kickoff/SKILL.md` |

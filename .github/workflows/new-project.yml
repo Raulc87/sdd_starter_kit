@@ -119,7 +119,7 @@ jobs:
                 allow_deletions: false
               }' | gh api -X PUT "repos/${OWNER}/${REPO_NAME}/branches/main/protection" --input - > /dev/null \
              && gh api "repos/${OWNER}/${REPO_NAME}/branches/main/protection" \
-                  --jq '(.required_pull_request_reviews != null) and .enforce_admins.enabled and (.allow_force_pushes.enabled | not)' \
+                  --jq '(.required_pull_request_reviews != null) and .enforce_admins.enabled and (.allow_force_pushes.enabled | not) and (.allow_deletions.enabled | not)' \
                 | grep -qx true; then
             echo "main is protected for everyone, administrators included (verified): pull request required, no force pushes or deletions."
             echo "PROTECTED=yes" >> "$GITHUB_ENV"
